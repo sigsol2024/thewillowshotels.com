@@ -1,22 +1,42 @@
+# The Willow Nest — Apache / LiteSpeed cache + clean homepage URL
+# Upload to document root. HTML must revalidate so chrome updates show immediately.
+
 DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  # Send /index.html to / so homepage always uses one URL
+  RewriteBase /
+
+  # /index.html → /
   RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
   RewriteRule ^index\.html$ / [R=301,L]
 </IfModule>
 
-# Prevent stale HTML (loyalty top bar must show on all pages)
 <IfModule mod_headers.c>
-  <FilesMatch "\.(html|htm)$">
+  # HTML — never serve stale pages
+  <FilesMatch "\.(html?)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"
     Header set Expires "0"
   </FilesMatch>
-  <FilesMatch "common-scripts\.js$">
+
+  # Shared chrome must always revalidate
+  <FilesMatch "(site-chrome|common-scripts|common-styles)\.(js|css)$">
     Header set Cache-Control "no-cache, no-store, must-revalidate"
     Header set Pragma "no-cache"
     Header set Expires "0"
   </FilesMatch>
+
+  # Images can cache longer
+  <FilesMatch "\.(png|jpe?g|gif|webp|ico|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>
+
+# Extra belt-and-suspenders for hosts that ignore FilesMatch on HTML
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 0 seconds"
 </IfModule>
