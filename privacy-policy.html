@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy - The Willow Nest Hotel</title>
+  <meta name="description" content="Learn about how we collect, use, and protect your personal information">
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #d9a51a;
+      --accent-2: #e6b93a;
+      --bg-dark: #3a3736;
+      --muted: #8b8786;
+      --card-bg: #faf6f3;
+      --max-width: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;overflow-x:hidden;width:100%;max-width:100%}
+    body{font-family:'Poppins',system-ui,Arial,sans-serif;color:#222;background:#fff;line-height:1.5}
+
+    nav{background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:100}
+    .nav-container{max-width:var(--max-width);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:80px}
+    .logo img{height:48px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{text-decoration:none;color:#222;font-weight:500;transition:color .2s ease}
+    .nav-links a:hover, .nav-links a.active{color:var(--accent)}
+    .nav-links .btn{margin-left:16px}
+    .mobile-toggle{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+
+    /* MOBILE MENU */
+    .mobile-menu{position:fixed;top:80px;right:-100%;width:280px;height:calc(100vh - 80px);background:#fff;box-shadow:-4px 0 12px rgba(0,0,0,0.1);transition:right .3s ease;z-index:999;overflow-y:auto;padding:20px}
+    .mobile-menu.active{right:0}
+    .mobile-menu a{display:block;padding:12px 0;color:#222;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.06);font-weight:500}
+    .mobile-menu a:hover{color:var(--accent)}
+    .mobile-menu .submenu{padding-left:16px;display:none}
+    .mobile-menu .submenu.active{display:block}
+    .mobile-menu .submenu a{font-size:14px;padding:8px 0}
+    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:998}
+    .menu-overlay.active{opacity:1;pointer-events:all}
+
+    /* DROPDOWN MENU */
+    .nav-dropdown{position:relative}
+    .nav-dropdown-content{position:absolute;top:100%;left:0;background:#fff;min-width:200px;box-shadow:0 8px 24px rgba(0,0,0,0.12);border-radius:8px;padding:8px 0;opacity:0;visibility:hidden;transform:translateY(-10px);transition:all .2s ease;z-index:1000}
+    .nav-dropdown:hover .nav-dropdown-content{opacity:1;visibility:visible;transform:translateY(0)}
+    .nav-dropdown-content a{display:block;padding:10px 20px;color:#222;text-decoration:none;font-size:14px;transition:background .2s ease}
+    .nav-dropdown-content a:hover{background:var(--card-bg);color:var(--accent)}
+
+    .btn{display:inline-block;padding:14px 26px;border-radius:8px;font-weight:600;text-decoration:none;min-width:150px;text-align:center;cursor:pointer;transition:all .2s ease}
+    .btn-primary{background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);color:#222;box-shadow:0 6px 18px rgba(214,150,32,0.18);border:0}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(214,150,32,0.28)}
+
+    .hero{position:relative;min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background-size:cover;background-position:center;background-repeat:no-repeat}
+    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.5);z-index:1}
+    .hero-content{position:relative;z-index:2;max-width:800px;padding:40px 20px}
+    .hero h1{font-family:'Playfair Display', serif;font-weight:700;font-size:48px;margin:0 0 16px}
+    .hero p{font-size:18px;margin:0;line-height:1.6;color:rgba(255,255,255,0.9)}
+
+    .policy-section{padding:80px 20px;background:#fff}
+    .policy-inner{max-width:900px;margin:0 auto}
+    .policy-inner h2{font-family:'Playfair Display', serif;font-size:28px;margin:32px 0 16px;color:#222}
+    .policy-inner h2:first-child{margin-top:0}
+    .policy-inner h3{font-family:'Playfair Display', serif;font-size:22px;margin:24px 0 12px;color:var(--accent)}
+    .policy-inner p{color:var(--muted);line-height:1.8;margin:0 0 16px;font-size:15px}
+    .policy-inner ul{color:var(--muted);line-height:1.8;margin:0 0 16px;padding-left:24px}
+    .policy-inner li{margin-bottom:8px}
+    .policy-inner strong{color:#222;font-weight:600}
+    .last-updated{background:var(--card-bg);padding:16px 20px;border-radius:8px;margin-bottom:32px;font-size:14px;color:var(--muted)}
+
+    footer{background:var(--bg-dark);color:rgba(255,255,255,0.85);padding:48px 20px 24px}
+    .footer-container{max-width:var(--max-width);margin:0 auto}
+    .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-bottom:32px}
+    .footer-col h3{font-family:'Playfair Display', serif;font-size:18px;margin:0 0 16px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col li{margin-bottom:8px}
+    .footer-col a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px;transition:color .2s ease}
+    .footer-col a:hover{color:var(--accent)}
+    .footer-logo{height:48px;width:auto;margin-bottom:16px}
+    .footer-desc{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:16px;line-height:1.6}
+    .social-links{display:flex;gap:12px}
+    .social-links a{color:rgba(255,255,255,0.7);transition:color .2s ease}
+    .social-links a:hover{color:var(--accent)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .footer-bottom p{margin:0;font-size:14px;color:rgba(255,255,255,0.6)}
+    .footer-bottom-links{display:flex;gap:24px}
+    .footer-bottom-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px}
+    .footer-bottom-links a:hover{color:var(--accent)}
+
+    @media (max-width:780px){
+      .hero h1{font-size:32px}
+      .nav-links{display:none}
+      .mobile-toggle{display:block}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="header-logo.webp" alt="The Willow Nest Hotel">
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <div class="nav-dropdown">
+          <a href="locations.html">Locations ▾</a>
+          <div class="nav-dropdown-content">
+            <a href="location-ibadan.html">Ibadan</a>
+            <a href="location-ogbomosho.html">Ogbomosho</a>
+            <a href="location-abuja.html">Abuja</a>
+          </div>
+        </div>
+        <a href="facilities.html">Facilities</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary">Book Now</a>
+      </div>
+      <button class="mobile-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="#" onclick="toggleSubmenu(event)">Locations ▾</a>
+    <div class="submenu" id="locationsSubmenu">
+      <a href="location-ibadan.html">Ibadan</a>
+      <a href="location-ogbomosho.html">Ogbomosho</a>
+      <a href="location-abuja.html">Abuja</a>
+    </div>
+    <a href="facilities.html">Facilities</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+    <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary" style="margin-top:16px">Book Now</a>
+  </div>
+
+  <header class="hero" style="background-image:url('images/about us/hero section bg.jpg')">
+    <div class="hero-content">
+      <h1>Privacy Policy</h1>
+      <p>Your privacy is important to us</p>
+    </div>
+  </header>
+
+  <section class="policy-section">
+    <div class="policy-inner">
+      <div class="last-updated">
+        <strong>Last Updated:</strong> January 2024
+      </div>
+
+      <h2>Introduction</h2>
+      <p>Welcome to The Willow Nest Hotel. We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our hotels or use our services.</p>
+
+      <h2>Information We Collect</h2>
+      
+      <h3>Personal Information</h3>
+      <p>We may collect personal information that you voluntarily provide to us when you:</p>
+      <ul>
+        <li>Make a reservation or book accommodation</li>
+        <li>Register for our loyalty program</li>
+        <li>Contact us with inquiries or requests</li>
+        <li>Subscribe to our newsletter or marketing communications</li>
+        <li>Participate in surveys or promotions</li>
+        <li>Use our facilities or services</li>
+      </ul>
+
+      <p>The personal information we collect may include:</p>
+      <ul>
+        <li>Name, email address, and phone number</li>
+        <li>Postal address and billing information</li>
+        <li>Payment card details and transaction information</li>
+        <li>Date of birth and nationality</li>
+        <li>Passport or identification details (as required by law)</li>
+        <li>Preferences and special requests</li>
+        <li>Communication history with us</li>
+      </ul>
+
+      <h3>Automatically Collected Information</h3>
+      <p>When you visit our website or use our services, we may automatically collect certain information, including:</p>
+      <ul>
+        <li>Device information (IP address, browser type, operating system)</li>
+        <li>Usage data (pages visited, time spent, click patterns)</li>
+        <li>Location data (with your permission)</li>
+        <li>Cookies and similar tracking technologies</li>
+      </ul>
+
+      <h2>How We Use Your Information</h2>
+      <p>We use the information we collect for various purposes, including:</p>
+      <ul>
+        <li><strong>Providing Services:</strong> To process reservations, manage your stay, and deliver the services you request</li>
+        <li><strong>Communication:</strong> To send booking confirmations, respond to inquiries, and provide customer support</li>
+        <li><strong>Marketing:</strong> To send promotional materials, special offers, and newsletters (with your consent)</li>
+        <li><strong>Personalization:</strong> To tailor our services to your preferences and improve your experience</li>
+        <li><strong>Legal Compliance:</strong> To comply with legal obligations, including tax and regulatory requirements</li>
+        <li><strong>Security:</strong> To protect against fraud, unauthorized access, and ensure the safety of our guests and property</li>
+        <li><strong>Analytics:</strong> To analyze trends, monitor website performance, and improve our services</li>
+      </ul>
+
+      <h2>How We Share Your Information</h2>
+      <p>We may share your information in the following circumstances:</p>
+      
+      <h3>Service Providers</h3>
+      <p>We may share your information with third-party service providers who assist us in operating our business, including:</p>
+      <ul>
+        <li>Payment processors and financial institutions</li>
+        <li>Booking and reservation systems</li>
+        <li>Marketing and communication platforms</li>
+        <li>IT service providers and cloud storage</li>
+        <li>Security and fraud prevention services</li>
+      </ul>
+
+      <h3>Legal Requirements</h3>
+      <p>We may disclose your information if required by law or in response to valid requests by public authorities, including:</p>
+      <ul>
+        <li>Compliance with legal obligations</li>
+        <li>Protection of our rights and property</li>
+        <li>Prevention of fraud or security threats</li>
+        <li>Cooperation with law enforcement</li>
+      </ul>
+
+      <h3>Business Transfers</h3>
+      <p>In the event of a merger, acquisition, or sale of assets, your information may be transferred to the acquiring entity.</p>
+
+      <h2>Data Security</h2>
+      <p>We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. These measures include:</p>
+      <ul>
+        <li>Encryption of sensitive data</li>
+        <li>Secure payment processing systems</li>
+        <li>Access controls and authentication</li>
+        <li>Regular security assessments</li>
+        <li>Employee training on data protection</li>
+      </ul>
+      <p>However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+      <h2>Your Rights and Choices</h2>
+      <p>You have certain rights regarding your personal information:</p>
+      <ul>
+        <li><strong>Access:</strong> You can request access to the personal information we hold about you</li>
+        <li><strong>Correction:</strong> You can request correction of inaccurate or incomplete information</li>
+        <li><strong>Deletion:</strong> You can request deletion of your personal information (subject to legal requirements)</li>
+        <li><strong>Objection:</strong> You can object to certain processing of your information</li>
+        <li><strong>Portability:</strong> You can request a copy of your information in a structured format</li>
+        <li><strong>Opt-Out:</strong> You can opt out of marketing communications at any time</li>
+      </ul>
+      <p>To exercise these rights, please contact us using the information provided below.</p>
+
+      <h2>Cookies and Tracking Technologies</h2>
+      <p>We use cookies and similar tracking technologies to enhance your experience on our website. Cookies are small data files stored on your device that help us:</p>
+      <ul>
+        <li>Remember your preferences and settings</li>
+        <li>Analyze website traffic and usage patterns</li>
+        <li>Deliver personalized content and advertisements</li>
+        <li>Improve website functionality and performance</li>
+      </ul>
+      <p>You can control cookie settings through your browser preferences. However, disabling cookies may affect your ability to use certain features of our website.</p>
+
+      <h2>Third-Party Links</h2>
+      <p>Our website may contain links to third-party websites or services. We are not responsible for the privacy practices of these external sites. We encourage you to review their privacy policies before providing any personal information.</p>
+
+      <h2>Children's Privacy</h2>
+      <p>Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have inadvertently collected information from a child, please contact us immediately.</p>
+
+      <h2>International Data Transfers</h2>
+      <p>Your information may be transferred to and processed in countries other than your country of residence. We ensure appropriate safeguards are in place to protect your information in accordance with this Privacy Policy and applicable laws.</p>
+
+      <h2>Data Retention</h2>
+      <p>We retain your personal information for as long as necessary to fulfill the purposes outlined in this Privacy Policy, unless a longer retention period is required or permitted by law. When we no longer need your information, we will securely delete or anonymize it.</p>
+
+      <h2>Changes to This Privacy Policy</h2>
+      <p>We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. We will notify you of any material changes by posting the updated policy on our website and updating the "Last Updated" date. Your continued use of our services after such changes constitutes acceptance of the updated policy.</p>
+
+      <h2>Contact Us</h2>
+      <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+      <ul>
+        <li><strong>Email:</strong> privacy@thewillownest.com</li>
+        <li><strong>Phone:</strong> +234 (0) 813 111 1808</li>
+        <li><strong>Address:</strong> Plot A, Oduduwa Street, Off Adeyi Street, Old Bodija, Ibadan, Nigeria</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="footer-logo.webp" alt="The Willow Nest Hotel" class="footer-logo">
+          <p class="footer-desc">Experience timeless elegance, modern luxury, and authentic cultural touches across Nigeria.</p>
+          <div class="social-links">
+            <a href="https://instagram.com/thewillownest" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://facebook.com/thewillownest" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://linkedin.com/company/thewillownest" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Our Locations</h3>
+          <ul>
+            <li><a href="location-ibadan.html">Ibadan (81 Rooms)</a></li>
+            <li><a href="location-ogbomosho.html">Ogbomosho (34 Rooms)</a></li>
+            <li><a href="location-abuja.html">Abuja (27 Rooms)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Info</h3>
+          <ul>
+            <li style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +234 (0) 813 111 1808
+            </li>
+            <li style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              reservations@thewillownest.com
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 The Willow Nest Hotel. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="hotel-policies.html">Hotel Policies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('menuOverlay');
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    // Submenu toggle
+    function toggleSubmenu(e) {
+      e.preventDefault();
+      const submenu = document.getElementById('locationsSubmenu');
+      submenu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
+

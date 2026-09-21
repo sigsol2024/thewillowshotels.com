@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Our Facilities - The Willow Nest Hotel</title>
+  <meta name="description" content="Discover our world-class amenities and services designed for your comfort and convenience">
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #d9a51a;
+      --accent-2: #e6b93a;
+      --bg-dark: #3a3736;
+      --muted: #8b8786;
+      --card-bg: #faf6f3;
+      --max-width: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;overflow-x:hidden;width:100%;max-width:100%}
+    body{font-family:'Poppins',system-ui,Arial,sans-serif;color:#222;background:#fff;line-height:1.5}
+
+    nav{background:rgba(255,255,255,0.98);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.06);position:sticky;top:0;z-index:100}
+    .nav-container{max-width:var(--max-width);margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:80px}
+    .logo img{height:48px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{text-decoration:none;color:#222;font-weight:500;transition:color .2s ease}
+    .nav-links a:hover, .nav-links a.active{color:var(--accent)}
+    .nav-links .btn{margin-left:16px}
+    .mobile-toggle{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+
+    /* MOBILE MENU */
+    .mobile-menu{position:fixed;top:80px;right:-100%;width:280px;height:calc(100vh - 80px);background:#fff;box-shadow:-4px 0 12px rgba(0,0,0,0.1);transition:right .3s ease;z-index:999;overflow-y:auto;padding:20px}
+    .mobile-menu.active{right:0}
+    .mobile-menu a{display:block;padding:12px 0;color:#222;text-decoration:none;border-bottom:1px solid rgba(0,0,0,0.06);font-weight:500}
+    .mobile-menu a:hover{color:var(--accent)}
+    .mobile-menu .submenu{padding-left:16px;display:none}
+    .mobile-menu .submenu.active{display:block}
+    .mobile-menu .submenu a{font-size:14px;padding:8px 0}
+    .menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:998}
+    .menu-overlay.active{opacity:1;pointer-events:all}
+
+    /* DROPDOWN MENU */
+    .nav-dropdown{position:relative}
+    .nav-dropdown-content{position:absolute;top:100%;left:0;background:#fff;min-width:200px;box-shadow:0 8px 24px rgba(0,0,0,0.12);border-radius:8px;padding:8px 0;opacity:0;visibility:hidden;transform:translateY(-10px);transition:all .2s ease;z-index:1000}
+    .nav-dropdown:hover .nav-dropdown-content{opacity:1;visibility:visible;transform:translateY(0)}
+    .nav-dropdown-content a{display:block;padding:10px 20px;color:#222;text-decoration:none;font-size:14px;transition:background .2s ease}
+    .nav-dropdown-content a:hover{background:var(--card-bg);color:var(--accent)}
+
+    .btn{display:inline-block;padding:14px 26px;border-radius:8px;font-weight:600;text-decoration:none;min-width:150px;text-align:center;cursor:pointer;transition:all .2s ease}
+    .btn-primary{background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);color:#222;box-shadow:0 6px 18px rgba(214,150,32,0.18);border:0}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(214,150,32,0.28)}
+
+    .hero{position:relative;min-height:60vh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background-size:cover;background-position:center}
+    .hero::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,0.5)}
+    .hero-content{position:relative;z-index:2;max-width:800px;padding:40px 20px}
+    .hero h1{font-family:'Playfair Display', serif;font-weight:700;font-size:56px;margin:0 0 16px;text-shadow: 0 6px 18px rgba(0,0,0,0.4)}
+    .hero p{font-size:20px;margin:0;line-height:1.6;color:rgba(255,255,255,0.9)}
+
+    .section{padding:80px 20px}
+    .section-inner{max-width:var(--max-width);margin:0 auto}
+    .section h2{font-family:'Playfair Display', serif;font-size:36px;text-align:center;margin:0 0 12px}
+    .section p.lead{text-align:center;color:var(--muted);margin:0 auto 48px;max-width:780px}
+
+    .main-facilities{background:#fff}
+    .facilities-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .facility-card{background:var(--card-bg);border-radius:10px;padding:32px 24px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,0.02);transition:transform .18s ease, box-shadow .18s ease}
+    .facility-card:hover{transform:translateY(-6px);box-shadow:0 18px 36px rgba(0,0,0,0.06)}
+    .facility-icon{color:var(--accent);margin-bottom:16px}
+    .facility-card h3{font-family:'Playfair Display', serif;font-size:20px;margin:0 0 12px}
+    .facility-card p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+
+    .featured-facilities{background:#f5f0ea}
+    .featured-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
+    .featured-card{position:relative;border-radius:12px;overflow:hidden;height:320px;box-shadow:0 8px 24px rgba(0,0,0,0.08);transition:transform .3s ease, box-shadow .3s ease}
+    .featured-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,0.14)}
+    .featured-card img{width:100%;height:100%;object-fit:cover}
+    .featured-overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;color:#fff}
+    .featured-card h3{font-family:'Playfair Display', serif;font-size:24px;margin:0 0 8px;font-weight:700}
+    .featured-card p{margin:0 0 16px;font-size:14px;line-height:1.5;color:rgba(255,255,255,0.9)}
+    .featured-features{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+    .featured-feature{display:flex;align-items:center;gap:6px;font-size:13px}
+    .featured-feature::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+
+    .services{background:#fff}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+    .service-category h3{font-family:'Playfair Display', serif;font-size:22px;margin:0 0 16px;color:var(--accent)}
+    .service-category ul{list-style:none;padding:0;margin:0}
+    .service-category li{padding:8px 0;color:var(--muted);border-bottom:1px solid rgba(0,0,0,0.06);font-size:14px}
+    .service-category li:last-child{border-bottom:none}
+    .service-category li::before{content:'✓';color:var(--accent);font-weight:bold;margin-right:8px}
+
+    footer{background:var(--bg-dark);color:rgba(255,255,255,0.85);padding:48px 20px 24px}
+    .footer-container{max-width:var(--max-width);margin:0 auto}
+    .footer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-bottom:32px}
+    .footer-col h3{font-family:'Playfair Display', serif;font-size:18px;margin:0 0 16px;color:#fff}
+    .footer-col ul{list-style:none;padding:0;margin:0}
+    .footer-col li{margin-bottom:8px}
+    .footer-col a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px;transition:color .2s ease}
+    .footer-col a:hover{color:var(--accent)}
+    .footer-logo{height:48px;width:auto;margin-bottom:16px}
+    .footer-desc{font-size:14px;color:rgba(255,255,255,0.7);margin-bottom:16px;line-height:1.6}
+    .social-links{display:flex;gap:12px}
+    .social-links a{color:rgba(255,255,255,0.7);transition:color .2s ease}
+    .social-links a:hover{color:var(--accent)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+    .footer-bottom p{margin:0;font-size:14px;color:rgba(255,255,255,0.6)}
+    .footer-bottom-links{display:flex;gap:24px}
+    .footer-bottom-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:14px}
+    .footer-bottom-links a:hover{color:var(--accent)}
+
+    @media (max-width:780px){
+      .hero h1{font-size:36px}
+      .nav-links{display:none}
+      .mobile-toggle{display:block}
+      .facilities-grid, .featured-grid, .services-grid{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="header-logo.webp" alt="The Willow Nest Hotel">
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <div class="nav-dropdown">
+          <a href="locations.html">Locations ▾</a>
+          <div class="nav-dropdown-content">
+            <a href="location-ibadan.html">Ibadan</a>
+            <a href="location-ogbomosho.html">Ogbomosho</a>
+            <a href="location-abuja.html">Abuja</a>
+          </div>
+        </div>
+        <a href="facilities.html" class="active">Facilities</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary">Book Now</a>
+      </div>
+      <button class="mobile-toggle" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="#" onclick="toggleSubmenu(event)">Locations ▾</a>
+    <div class="submenu" id="locationsSubmenu">
+      <a href="location-ibadan.html">Ibadan</a>
+      <a href="location-ogbomosho.html">Ogbomosho</a>
+      <a href="location-abuja.html">Abuja</a>
+    </div>
+    <a href="facilities.html">Facilities</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+    <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary" style="margin-top:16px">Book Now</a>
+  </div>
+
+  <header class="hero" style="background-image:url('images/Facilities/hero section bg.jpg')">
+    <div class="hero-content">
+      <h1>Our Facilities</h1>
+      <p>Discover our world-class amenities and services designed for your comfort and convenience</p>
+    </div>
+  </header>
+
+  <section class="section main-facilities">
+    <div class="section-inner">
+      <h2>Main Facilities</h2>
+      <p class="lead">Experience luxury and comfort with our premium facilities</p>
+      <div class="facilities-grid">
+        <article class="facility-card">
+          <div class="facility-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Executive Conference Facilities</h3>
+          <p>State-of-the-art meeting rooms and conference facilities for business events</p>
+        </article>
+
+        <article class="facility-card">
+          <div class="facility-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <h3>Fine Dining Restaurant</h3>
+          <p>Exquisite culinary experiences with locally sourced ingredients and international cuisine</p>
+        </article>
+
+        <article class="facility-card">
+          <div class="facility-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>Rooftop Lounge & Pool</h3>
+          <p>Relax and unwind at our stunning rooftop pool with panoramic city views</p>
+        </article>
+
+        <article class="facility-card">
+          <div class="facility-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>State of the Art Fitness Center</h3>
+          <p>Maintain your fitness routine with our fully equipped gym and wellness facilities</p>
+        </article>
+
+        <article class="facility-card">
+          <div class="facility-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>24/7 Room Service</h3>
+          <p>Round-the-clock dining and beverage service for your convenience</p>
+        </article>
+
+        <article class="facility-card">
+          <div class="facility-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3"/><path d="M9 17h2.5a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H9"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+          </div>
+          <h3>Free Parking</h3>
+          <p>Complimentary free parking service for all guests</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section featured-facilities">
+    <div class="section-inner">
+      <h2>Featured Facilities</h2>
+      <p class="lead">Explore our signature amenities in detail</p>
+      <div class="featured-grid">
+        <article class="featured-card">
+          <img src="images/Facilities/Executive Conference Facilities.jpg" alt="Executive Conference Facilities">
+          <div class="featured-overlay">
+            <h3>Executive Conference Facilities</h3>
+            <p>State-of-the-art meeting rooms and conference facilities for business events</p>
+            <div class="featured-features">
+              <div class="featured-feature">High-speed WiFi</div>
+              <div class="featured-feature">Audio/Visual Equipment</div>
+              <div class="featured-feature">Catering Services</div>
+              <div class="featured-feature">Professional Staff</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-card">
+          <img src="images/Facilities/Fine Dining Restaurant Fine Dining Restaurant.jpg" alt="Fine Dining Restaurant">
+          <div class="featured-overlay">
+            <h3>Fine Dining Restaurant</h3>
+            <p>Exquisite culinary experiences with locally sourced ingredients</p>
+            <div class="featured-features">
+              <div class="featured-feature">Chef's Specialties</div>
+              <div class="featured-feature">Wine Selection</div>
+              <div class="featured-feature">Private Dining</div>
+              <div class="featured-feature">Room Service</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-card">
+          <img src="images/Facilities/Rooftop Lounge & Pool.jpg" alt="Rooftop Lounge & Pool">
+          <div class="featured-overlay">
+            <h3>Rooftop Lounge & Pool</h3>
+            <p>Relax and unwind at our stunning rooftop pool</p>
+            <div class="featured-features">
+              <div class="featured-feature">Infinity Pool</div>
+              <div class="featured-feature">Poolside Bar</div>
+              <div class="featured-feature">Lounge Seating</div>
+              <div class="featured-feature">City Views</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="featured-card">
+          <img src="images/Facilities/State of the Art Fitness Center (2).jpg" alt="Fitness Center">
+          <div class="featured-overlay">
+            <h3>State of the Art Fitness Center</h3>
+            <p>Maintain your fitness routine with our fully equipped gym</p>
+            <div class="featured-features">
+              <div class="featured-feature">Modern Equipment</div>
+              <div class="featured-feature">Personal Training</div>
+              <div class="featured-feature">Group Classes</div>
+              <div class="featured-feature">24/7 Access</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section services">
+    <div class="section-inner">
+      <h2>Additional Services</h2>
+      <p class="lead">Comprehensive services to enhance your stay</p>
+      <div class="services-grid">
+        <div class="service-category">
+          <h3>Concierge Services</h3>
+          <ul>
+            <li>Airport transfers and transportation</li>
+            <li>Restaurant reservations</li>
+            <li>Tour and excursion bookings</li>
+            <li>Event planning and coordination</li>
+            <li>Personal shopping assistance</li>
+          </ul>
+        </div>
+
+        <div class="service-category">
+          <h3>Business Services</h3>
+          <ul>
+            <li>High-speed WiFi throughout</li>
+            <li>Business center with computers</li>
+            <li>Printing and copying services</li>
+            <li>Meeting room rentals</li>
+            <li>Video conferencing facilities</li>
+          </ul>
+        </div>
+
+        <div class="service-category">
+          <h3>Guest Services</h3>
+          <ul>
+            <li>24-hour front desk</li>
+            <li>Laundry and dry cleaning</li>
+            <li>Currency exchange</li>
+            <li>Luggage storage</li>
+            <li>Wake-up call service</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="footer-logo.webp" alt="The Willow Nest Hotel" class="footer-logo">
+          <p class="footer-desc">Experience timeless elegance, modern luxury, and authentic cultural touches across Nigeria.</p>
+          <div class="social-links">
+            <a href="https://instagram.com/thewillownest" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="https://facebook.com/thewillownest" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="https://linkedin.com/company/thewillownest" target="_blank"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Our Locations</h3>
+          <ul>
+            <li><a href="location-ibadan.html">Ibadan (81 Rooms)</a></li>
+            <li><a href="location-ogbomosho.html">Ogbomosho (34 Rooms)</a></li>
+            <li><a href="location-abuja.html">Abuja (27 Rooms)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Contact Info</h3>
+          <ul>
+            <li style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +234 (0) 813 111 1808
+            </li>
+            <li style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              reservations@thewillownest.com
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 The Willow Nest Hotel. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="hotel-policies.html">Hotel Policies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('menuOverlay');
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    // Submenu toggle
+    function toggleSubmenu(e) {
+      e.preventDefault();
+      const submenu = document.getElementById('locationsSubmenu');
+      submenu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
+

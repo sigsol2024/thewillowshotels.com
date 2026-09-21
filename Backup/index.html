@@ -1,0 +1,1183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>The Willow Nest Hotel - Luxury Hotels in Nigeria | Ibadan, Ogbomosho, Abuja</title>
+  <meta name="description" content="Experience timeless elegance and modern luxury at The Willow Nest Hotel. Premium locations across Nigeria with world-class facilities and exceptional service.">
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #d9a51a;
+      --accent-2: #e6b93a;
+      --bg-dark: #3a3736;
+      --muted: #8b8786;
+      --card-bg: #faf6f3;
+      --card-border: rgba(0,0,0,0.03);
+      --max-width: 1200px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;overflow-x:hidden;width:100%;max-width:100%}
+    body{font-family:'Poppins',system-ui,Arial,sans-serif;color:#222;background:#fff;line-height:1.5}
+
+    /* NAVIGATION */
+    nav{
+      background:rgba(255,255,255,0.98);
+      backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      position:sticky;
+      top:0;
+      z-index:100;
+    }
+    .nav-container{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:80px;
+    }
+    .logo img{height:48px;width:auto}
+    .nav-links{display:flex;align-items:center;gap:32px}
+    .nav-links a{
+      text-decoration:none;
+      color:#222;
+      font-weight:500;
+      transition:color .2s ease;
+    }
+    .nav-links a:hover, .nav-links a.active{color:var(--accent)}
+    .nav-links .btn{margin-left:16px}
+    .mobile-toggle{display:none;background:none;border:none;font-size:24px;cursor:pointer}
+
+    /* HERO / SLIDER */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      overflow:hidden;
+      background:var(--bg-dark);
+    }
+
+    .slider {
+      position:absolute; inset:0; z-index:0;
+    }
+    .slide {
+      position:absolute; inset:0;
+      background-position:center;
+      background-size:cover;
+      background-repeat:no-repeat;
+      opacity:0;
+      transform:scale(1.02);
+      transition:opacity .8s ease, transform .9s ease;
+    }
+    .slide.active{opacity:1; transform:scale(1)}
+
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(51,48,47,0.85) 0%, rgba(51,48,47,0.70) 40%, rgba(51,48,47,0.45) 100%);
+      z-index:1;
+    }
+
+    .hero-content{
+      position:relative; z-index:10; max-width:900px; padding:40px 20px;
+    }
+    .hero h1{
+      font-family:'Playfair Display', serif;
+      font-weight:700;
+      letter-spacing:0.5px;
+      font-size:64px;
+      margin:0 0 10px;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+    .hero .sub {font-family:'Playfair Display', serif; font-weight:400; margin-bottom:18px; color:#e9e2df; font-size:20px}
+    .hero p {margin:0 0 24px;color:#e6e0df; font-size:18px; max-width:760px; margin-left:auto;margin-right:auto}
+
+    .hero .cta {
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .btn {
+      display:inline-block;
+      padding:14px 26px;
+      border-radius:8px;
+      font-weight:600;
+      text-decoration:none;
+      min-width:150px;
+      text-align:center;
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+    .btn-primary{
+      background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);
+      color:#222;
+      box-shadow:0 6px 18px rgba(214,150,32,0.18);
+      border:0;
+    }
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(214,150,32,0.28)}
+    .btn-outline{
+      background:transparent;
+      color:var(--accent);
+      border:2px solid rgba(230,185,70,0.14);
+      box-shadow:none;
+    }
+    .btn-outline:hover{background:rgba(230,185,70,0.08)}
+
+    /* MOBILE MENU */
+    .mobile-menu{
+      position:fixed;
+      top:0;
+      right:-100%;
+      width:70%;
+      height:100vh;
+      background:#fff;
+      box-shadow:-4px 0 12px rgba(0,0,0,0.1);
+      transition:right .3s ease;
+      z-index:999;
+      overflow-y:auto;
+      padding:20px;
+    }
+    .mobile-menu.active{right:0}
+    .mobile-menu-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding-bottom:16px;
+      border-bottom:2px solid rgba(0,0,0,0.08);
+      margin-bottom:16px;
+    }
+    .mobile-menu-header h3{
+      font-family:'Playfair Display', serif;
+      font-size:20px;
+      margin:0;
+      color:#222;
+    }
+    .mobile-menu-close{
+      background:none;
+      border:none;
+      font-size:28px;
+      cursor:pointer;
+      color:#222;
+      width:36px;
+      height:36px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      transition:all .2s ease;
+    }
+    .mobile-menu-close:hover{
+      background:rgba(0,0,0,0.05);
+      color:var(--accent);
+    }
+    .mobile-menu a{
+      display:block;
+      padding:12px 0;
+      color:#222;
+      text-decoration:none;
+      border-bottom:1px solid rgba(0,0,0,0.06);
+      font-weight:500;
+    }
+    .mobile-menu a:hover{color:var(--accent)}
+    .mobile-menu .submenu{
+      padding-left:16px;
+      display:none;
+    }
+    .mobile-menu .submenu.active{display:block}
+    .mobile-menu .submenu a{
+      font-size:14px;
+      padding:8px 0;
+    }
+    .menu-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s ease;
+      z-index:998;
+    }
+    .menu-overlay.active{
+      opacity:1;
+      pointer-events:all;
+    }
+
+    /* DROPDOWN MENU */
+    .nav-dropdown{
+      position:relative;
+    }
+    .nav-dropdown-content{
+      position:absolute;
+      top:100%;
+      left:0;
+      background:#fff;
+      min-width:200px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.12);
+      border-radius:8px;
+      padding:8px 0;
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(-10px);
+      transition:all .2s ease;
+      z-index:1000;
+    }
+    .nav-dropdown:hover .nav-dropdown-content{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0);
+    }
+    .nav-dropdown-content a{
+      display:block;
+      padding:10px 20px;
+      color:#222;
+      text-decoration:none;
+      font-size:14px;
+      transition:background .2s ease;
+    }
+    .nav-dropdown-content a:hover{
+      background:var(--card-bg);
+      color:var(--accent);
+    }
+
+    .slider-controls{
+      position:absolute; left:16px; right:16px; bottom:18px; z-index:3; display:flex; justify-content:center; gap:8px;
+    }
+    .dots{display:flex; gap:8px}
+    .dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.25);transition:all .2s ease}
+    .dot:hover{background:rgba(255,255,255,.4)}
+    .dot.active{background:var(--accent)}
+
+    .arrow{
+      position:absolute; top:50%; transform:translateY(-50%);
+      z-index:4; background:rgba(0,0,0,.28); border-radius:50%; width:44px;height:44px; display:flex; align-items:center; justify-content:center; cursor:pointer;
+      transition:background .2s ease;
+    }
+    .arrow:hover{background:rgba(0,0,0,.42)}
+    .arrow.left{left:18px}
+    .arrow.right{right:18px}
+    .arrow svg{filter:drop-shadow(0 3px 6px rgba(0,0,0,0.4))}
+
+    /* BOOKING BRIDGE */
+    .booking-bridge{
+      position:relative;
+      display:flex;
+      justify-content:center;
+      transform:translateY(-96px);
+      z-index:5;
+      padding:0 20px;
+      margin-bottom:-96px;
+    }
+    .booking-wrap{
+      width:100%;
+      max-width:1000px;
+      background:#fff;
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 12px 36px rgba(32,30,28,0.12);
+      border:1px solid rgba(0,0,0,0.04);
+    }
+    @media (max-width:780px){
+      .booking-wrap{max-width:100%}
+    }
+
+    /* SECTIONS */
+    .section{padding:80px 20px}
+    .section-inner{max-width:var(--max-width); width:100%; margin:0 auto}
+    .section h2{
+      text-align:center;
+      font-family:'Playfair Display', serif;
+      font-size:36px;
+      margin:0 0 12px;
+    }
+    .section p.lead{text-align:center; color:var(--muted); margin:6px auto 48px; max-width:780px}
+
+    /* HIGHLIGHTS */
+    .highlights{background:#faf9f7; padding:140px 20px 80px}
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+    .card{
+      background:var(--card-bg);
+      border-radius:10px;
+      padding:26px 18px;
+      text-align:center;
+      border:1px solid var(--card-border);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .card:hover{ transform: translateY(-6px); box-shadow:0 18px 36px rgba(0,0,0,0.06) }
+    .card .icon{font-size:30px; margin-bottom:12px; color:var(--accent)}
+    .card h3{ margin:6px 0 8px; font-size:18px; font-weight:600; font-family:'Playfair Display', serif; color:#222 }
+    .card p{ margin:0; color:var(--muted); font-size:13px; line-height:1.45 }
+
+    /* FACILITIES */
+    .facilities{background:#f5f0ea; padding:80px 20px}
+    .facility-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:32px; margin-bottom:32px}
+    .facility-card{
+      position:relative;
+      border-radius:12px;
+      overflow:hidden;
+      height:320px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .facility-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,0.14)}
+    .facility-card img{width:100%;height:100%;object-fit:cover}
+    .facility-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:24px;
+      color:#fff;
+    }
+    .facility-card h3{font-family:'Playfair Display', serif; font-size:24px; margin:0 0 8px; font-weight:700}
+    .facility-card p{margin:0 0 16px; font-size:14px; line-height:1.5; color:rgba(255,255,255,0.9)}
+    .facility-features{display:grid; grid-template-columns:repeat(2,1fr); gap:8px}
+    .facility-feature{display:flex; align-items:center; gap:6px; font-size:13px}
+    .facility-feature::before{content:''; width:6px; height:6px; background:var(--accent); border-radius:50%; flex-shrink:0}
+
+    /* LOCATIONS */
+    .locations{background:#fff; padding:80px 20px}
+    .location-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+    .location-card{
+      background:var(--card-bg);
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .location-card:hover{transform:translateY(-8px);box-shadow:0 16px 48px rgba(0,0,0,0.14)}
+    .location-img{position:relative; height:256px}
+    .location-img img{width:100%;height:100%;object-fit:cover}
+    .location-img-overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+    }
+    .location-img-text{
+      position:absolute;
+      bottom:16px;
+      left:16px;
+      color:#fff;
+    }
+    .location-img-text h3{font-family:'Playfair Display', serif; font-size:28px; margin:0 0 4px; font-weight:700}
+    .location-img-text .subtitle{font-size:14px; color:rgba(255,255,255,0.8)}
+    .location-content{padding:24px}
+    .location-content p{margin:0 0 16px; color:var(--muted); font-size:14px; line-height:1.6}
+
+    /* ABOUT PREVIEW */
+    .about-preview{background:var(--bg-dark); color:rgba(255,255,255,0.9); padding:80px 20px}
+    .about-preview h2{color:#fff}
+    .about-preview .lead{color:rgba(255,255,255,0.8)}
+    .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; margin-bottom:32px}
+    .about-section h3{font-family:'Playfair Display', serif; font-size:24px; margin:0 0 16px; color:#fff}
+    .about-section p{color:rgba(255,255,255,0.8); line-height:1.8; margin-bottom:24px}
+    .about-values{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+    .about-value{display:flex; gap:12px; align-items:start}
+    .about-value-icon{
+      width:32px;
+      height:32px;
+      background:rgba(217,165,26,0.2);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      color:var(--accent);
+    }
+    .about-value h4{font-size:16px; font-weight:600; margin:0 0 4px; color:#fff}
+    .about-value p{font-size:13px; margin:0; color:rgba(255,255,255,0.7)}
+
+    /* TESTIMONIALS */
+    .testimonials{background:#f5f0ea; padding:80px 20px}
+    .testimonial-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:24px}
+    .testimonial-card{
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:24px;
+      box-shadow:0 6px 18px rgba(0,0,0,0.04);
+    }
+    .testimonial-stars{display:flex; gap:4px; margin-bottom:16px}
+    .star{color:var(--accent); fill:var(--accent)}
+    .testimonial-quote{font-style:italic; color:var(--muted); line-height:1.6; margin-bottom:16px}
+    .testimonial-author{border-top:1px solid rgba(0,0,0,0.06); padding-top:16px}
+    .testimonial-author .name{font-weight:600; margin:0 0 4px}
+    .testimonial-author .location{font-size:13px; color:var(--muted); margin:0}
+
+    /* AMENITIES */
+    .amenities{background:#fff; padding:80px 20px}
+    .amenities-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:24px}
+
+    /* OFFERS */
+    .offers{background:var(--accent); color:#222; padding:80px 20px}
+    .offers h2{color:#222}
+    .offers .lead{color:rgba(0,0,0,0.8)}
+    .offers-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px; margin-bottom:32px}
+    .offer-card{
+      background:rgba(255,255,255,0.95);
+      border-radius:12px;
+      padding:24px;
+    }
+    .offer-card h3{font-family:'Playfair Display', serif; font-size:22px; margin:0 0 12px}
+    .offer-card .desc{color:var(--muted); margin-bottom:16px}
+    .offer-card ul{list-style:none; padding:0; margin:0 0 16px; color:var(--muted)}
+    .offer-card li{padding:4px 0; font-size:14px}
+    .offer-card li::before{content:'• '; color:var(--accent); font-weight:bold}
+
+    /* NEWSLETTER */
+    .newsletter{background:var(--bg-dark); color:rgba(255,255,255,0.9); padding:80px 20px}
+    .newsletter h2{color:#fff}
+    .newsletter .lead{color:rgba(255,255,255,0.8)}
+    .newsletter-form{display:flex; gap:12px; max-width:500px; margin:0 auto 16px}
+    .newsletter-form input{
+      flex:1;
+      padding:14px 18px;
+      border-radius:8px;
+      border:0;
+      font-size:15px;
+    }
+    .newsletter-privacy{font-size:13px; color:rgba(255,255,255,0.6); text-align:center}
+
+    /* FOOTER */
+    footer{
+      background:var(--bg-dark);
+      color:rgba(255,255,255,0.85);
+      padding:48px 20px 24px;
+    }
+    .footer-container{
+      max-width:var(--max-width);
+      margin:0 auto;
+    }
+    .footer-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:32px;
+      margin-bottom:32px;
+    }
+    .footer-col h3{
+      font-family:'Playfair Display', serif;
+      font-size:18px;
+      margin:0 0 16px;
+      color:#fff;
+    }
+    .footer-col ul{list-style:none; padding:0; margin:0}
+    .footer-col li{margin-bottom:8px}
+    .footer-col a{color:rgba(255,255,255,0.7); text-decoration:none; font-size:14px; transition:color .2s ease}
+    .footer-col a:hover{color:var(--accent)}
+    .footer-logo{height:48px; width:auto; margin-bottom:16px}
+    .footer-desc{font-size:14px; color:rgba(255,255,255,0.7); margin-bottom:16px; line-height:1.6}
+    .social-links{display:flex; gap:12px}
+    .social-links a{color:rgba(255,255,255,0.7); transition:color .2s ease}
+    .social-links a:hover{color:var(--accent)}
+    .footer-bottom{
+      border-top:1px solid rgba(255,255,255,0.1);
+      padding-top:24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:16px;
+    }
+    .footer-bottom p{margin:0; font-size:14px; color:rgba(255,255,255,0.6)}
+    .footer-bottom-links{display:flex; gap:24px}
+    .footer-bottom-links a{color:rgba(255,255,255,0.7); text-decoration:none; font-size:14px}
+    .footer-bottom-links a:hover{color:var(--accent)}
+
+    /* Responsive */
+    @media (max-width:1100px){
+      .cards{grid-template-columns:repeat(3,1fr)}
+      .location-grid{grid-template-columns:repeat(2,1fr)}
+      .about-grid{grid-template-columns:1fr}
+      .testimonial-grid{grid-template-columns:repeat(2,1fr)}
+      .amenities-grid{grid-template-columns:repeat(2,1fr)}
+      .offers-grid{grid-template-columns:1fr}
+    }
+    @media (max-width:780px){
+      .hero{min-height:100vh;padding:36px 0}
+      .hero h1{font-size:36px}
+      .hero p{font-size:16px}
+      .booking-bridge{transform:translateY(-64px); padding:0 14px; margin-bottom:-64px}
+      .highlights{padding:100px 20px 60px}
+      .cards{grid-template-columns:1fr}
+      .card{padding:20px}
+      .arrow{display:none}
+      .nav-links{display:none}
+      .mobile-toggle{display:block}
+      .facility-grid{grid-template-columns:1fr}
+      .location-grid{grid-template-columns:1fr}
+      .testimonial-grid{grid-template-columns:1fr}
+      .amenities-grid{grid-template-columns:1fr}
+      .about-values{grid-template-columns:1fr}
+      .footer-grid{grid-template-columns:1fr}
+      .newsletter-form{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="header-logo.webp" alt="The Willow Nest Hotel">
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <div class="nav-dropdown">
+          <a href="locations.html">Locations ▾</a>
+          <div class="nav-dropdown-content">
+            <a href="location-ibadan.html">Ibadan</a>
+            <a href="location-ogbomosho.html">Ogbomosho</a>
+            <a href="location-abuja.html">Abuja</a>
+          </div>
+        </div>
+        <a href="facilities.html">Facilities</a>
+        <a href="contact.html">Contact</a>
+        <a href="faq.html">FAQ</a>
+        <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary">Book Now</a>
+      </div>
+      <button class="mobile-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">×</button>
+    </div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="#" onclick="toggleSubmenu(event)">Locations ▾</a>
+    <div class="submenu" id="locationsSubmenu">
+      <a href="location-ibadan.html">Ibadan</a>
+      <a href="location-ogbomosho.html">Ogbomosho</a>
+      <a href="location-abuja.html">Abuja</a>
+    </div>
+    <a href="facilities.html">Facilities</a>
+    <a href="contact.html">Contact</a>
+    <a href="faq.html">FAQ</a>
+    <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary" style="margin-top:16px">Book Now</a>
+  </div>
+
+  <!-- HERO / SLIDER -->
+  <header class="hero" id="hero">
+    <div class="slider" id="slider"></div>
+
+    <button class="arrow left" id="prevBtn" aria-label="Previous slide">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="arrow right" id="nextBtn" aria-label="Next slide">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+
+    <div class="hero-content">
+      <h1>The Willow Nest Hotel</h1>
+      <div class="sub">Luxury Redefined</div>
+      <p>Experience timeless elegance and modern luxury at our premium locations across Nigeria. Where tradition meets contemporary comfort.</p>
+
+      <div class="cta">
+        <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary">Book Now</a>
+        <a href="locations.html" class="btn btn-outline">Explore Locations</a>
+      </div>
+    </div>
+
+    <div class="slider-controls" id="sliderControls">
+      <div class="dots" id="dots"></div>
+    </div>
+  </header>
+
+  <!-- BOOKING BRIDGE -->
+  <div class="booking-bridge">
+    <div class="booking-wrap">
+      <script src="https://www.swiftbook.io/plugin/js/booking-service.min.js" id="propInfo" groupid="361N74nRDeJ9bLZsfQtW3ZTYxMzc=" cal-rendererId="quickbook-widget" JDRN="Y" location="off"></script>
+      <div id="quickbook-widget"></div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <section class="highlights">
+    <div class="section-inner">
+      <h2>Why Choose The Willow Nest</h2>
+      <p class="lead">Discover what makes us the premier choice for luxury hospitality in Nigeria</p>
+
+      <div class="cards">
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+          </div>
+          <h3>5-Star Service</h3>
+          <p>Award-winning hospitality and personalized service</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Prime Locations</h3>
+          <p>Strategically located in Nigeria's key cities</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l7 4v6c0 5-3.6 9-7 10-3.4-1-7-5-7-10V6l7-4z"/></svg>
+          </div>
+          <h3>Safety First</h3>
+          <p>24/7 security and safety protocols</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Expert Team</h3>
+          <p>Professional staff dedicated to your comfort</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+          </div>
+          <h3>Luxury Amenities</h3>
+          <p>World-class facilities and premium services</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FACILITIES -->
+  <section class="facilities">
+    <div class="section-inner">
+      <h2>World-Class Facilities</h2>
+      <p class="lead">Discover our world-class amenities designed for your comfort and convenience</p>
+
+      <div class="facility-grid">
+        <article class="facility-card">
+          <img src="images/home page/Executive Conference Facilities.jpg" alt="Executive Conference Facilities">
+          <div class="facility-overlay">
+            <h3>Executive Conference Facilities</h3>
+            <p>State-of-the-art meeting rooms and conference facilities for business events</p>
+            <div class="facility-features">
+              <div class="facility-feature">High-speed WiFi</div>
+              <div class="facility-feature">Audio/Visual Equipment</div>
+              <div class="facility-feature">Catering Services</div>
+              <div class="facility-feature">Professional Staff</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="facility-card">
+          <img src="images/home page/Fine Dining Restaurant Fine Dining Restaurant.jpg" alt="Fine Dining Restaurant">
+          <div class="facility-overlay">
+            <h3>Fine Dining Restaurant</h3>
+            <p>Exquisite culinary experiences with locally sourced ingredients and international cuisine</p>
+            <div class="facility-features">
+              <div class="facility-feature">Chef's Specialties</div>
+              <div class="facility-feature">Wine Selection</div>
+              <div class="facility-feature">Private Dining</div>
+              <div class="facility-feature">Room Service</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="facility-card">
+          <img src="images/home page/Rooftop Lounge & Pool.jpg" alt="Rooftop Lounge & Pool">
+          <div class="facility-overlay">
+            <h3>Rooftop Lounge & Pool</h3>
+            <p>Relax and unwind at our stunning rooftop pool with panoramic city views</p>
+            <div class="facility-features">
+              <div class="facility-feature">Infinity Pool</div>
+              <div class="facility-feature">Poolside Bar</div>
+              <div class="facility-feature">Lounge Seating</div>
+              <div class="facility-feature">City Views</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="facility-card">
+          <img src="images/home page/State of the Art Fitness Center (2).jpg" alt="State of the Art Fitness Center">
+          <div class="facility-overlay">
+            <h3>State of the Art Fitness Center</h3>
+            <p>Maintain your fitness routine with our fully equipped gym and wellness facilities</p>
+            <div class="facility-features">
+              <div class="facility-feature">Modern Equipment</div>
+              <div class="facility-feature">Personal Training</div>
+              <div class="facility-feature">Group Classes</div>
+              <div class="facility-feature">24/7 Access</div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div style="text-align:center; margin-top:32px">
+        <a href="facilities.html" class="btn btn-primary">View All Facilities</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section class="locations">
+    <div class="section-inner">
+      <h2>Our Locations</h2>
+      <p class="lead">Three distinctive properties across Nigeria, each offering unique experiences</p>
+
+      <div class="location-grid">
+        <article class="location-card">
+          <div class="location-img">
+            <img src="images/location/ibadan/hero-section-bg.jpg" alt="Ibadan">
+            <div class="location-img-overlay"></div>
+            <div class="location-img-text">
+              <h3>Ibadan</h3>
+              <div class="subtitle">81 Rooms</div>
+            </div>
+          </div>
+          <div class="location-content">
+            <p>Experience the cultural heart of Nigeria in our premium Ibadan location, featuring modern amenities and traditional hospitality.</p>
+            <a href="location-ibadan.html" class="btn btn-outline" style="width:100%">Explore Ibadan</a>
+          </div>
+        </article>
+
+        <article class="location-card">
+          <div class="location-img">
+            <img src="images/location/ogbomosho/hero-section-bg.jpeg?v=2" alt="Ogbomosho">
+            <div class="location-img-overlay"></div>
+            <div class="location-img-text">
+              <h3>Ogbomosho</h3>
+              <div class="subtitle">34 Cultural Rooms</div>
+            </div>
+          </div>
+          <div class="location-content">
+            <p>Discover the perfect blend of tradition and modernity in our Ogbomosho property, designed to reflect local heritage.</p>
+            <a href="location-ogbomosho.html" class="btn btn-outline" style="width:100%">Explore Ogbomosho</a>
+          </div>
+        </article>
+
+        <article class="location-card">
+          <div class="location-img">
+            <img src="images/location/abuja/hero-section-bg.png?v=2" alt="Abuja">
+            <div class="location-img-overlay"></div>
+            <div class="location-img-text">
+              <h3>Abuja</h3>
+              <div class="subtitle">27 Executive Rooms</div>
+            </div>
+          </div>
+          <div class="location-content">
+            <p>Located in the capital city, our Abuja property offers executive luxury with easy access to business districts and government offices.</p>
+            <a href="location-abuja.html" class="btn btn-outline" style="width:100%">Explore Abuja</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT PREVIEW -->
+  <section class="about-preview">
+    <div class="section-inner">
+      <h2>About The Willow Nest</h2>
+      <p class="lead">Where Luxury Meets Heritage</p>
+
+      <div class="about-grid">
+        <div class="about-section">
+          <h3>Who We Are</h3>
+          <p>The Willow Nest Hotel represents the perfect fusion of Nigerian hospitality traditions with contemporary luxury standards. We are committed to providing exceptional experiences that celebrate both our rich cultural heritage and modern sophistication.</p>
+          
+          <div class="about-values">
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+              </div>
+              <div>
+                <h4>Our Vision</h4>
+                <p>To be Nigeria's premier luxury hotel brand, setting the standard for hospitality excellence</p>
+              </div>
+            </div>
+
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div>
+                <h4>Our Mission</h4>
+                <p>To create unforgettable experiences through impeccable service and world-class amenities</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-section">
+          <h3>Our Core Values</h3>
+          
+          <div style="display:flex; flex-direction:column; gap:16px">
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div>
+                <h4>Authentic Hospitality</h4>
+                <p>Genuine care and warmth in every interaction</p>
+              </div>
+            </div>
+
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+              </div>
+              <div>
+                <h4>Excellence</h4>
+                <p>Uncompromising standards in service and quality</p>
+              </div>
+            </div>
+
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <h4>Community</h4>
+                <p>Supporting and celebrating local communities</p>
+              </div>
+            </div>
+
+            <div class="about-value">
+              <div class="about-value-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 4v6c0 5-3.6 9-7 10-3.4-1-7-5-7-10V6l7-4z"/></svg>
+              </div>
+              <div>
+                <h4>Integrity</h4>
+                <p>Transparent and ethical business practices</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:32px">
+        <a href="about.html" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.3)">Learn More About Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-inner">
+      <h2>Guest Testimonials</h2>
+      <p class="lead">Hear what our guests say about their experiences</p>
+
+      <div class="testimonial-grid">
+        <article class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star empty" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+          </div>
+          <p class="testimonial-quote">"This was a cute hotel, great ambience and vibe. The room came with breakfast for two which was a first for me as hotels typically offer just one. The food was good, a solid 7/10"</p>
+          <div class="testimonial-author">
+            <p class="name">Michael Christn</p>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star empty" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+          </div>
+          <p class="testimonial-quote">"It was an overall serene experience. The environment is easy to miss but once you're in you get a sense of calm and peace. The receptionist and hotel attendants are nice and welcoming."</p>
+          <div class="testimonial-author">
+            <p class="name">Mirya Sabo</p>
+          </div>
+        </article>
+
+        <article class="testimonial-card">
+          <div class="testimonial-stars">
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star" width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+            <svg class="star empty" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15 9 22 9 17 13 19 20 12 16 5 20 7 13 2 9 9 9 12 2"></polygon></svg>
+          </div>
+          <p class="testimonial-quote">"I was surprise that a hotel of this quality exists in Ogbomoso. The facility is pretty decent, and clean, they have the basic facilities."</p>
+          <div class="testimonial-author">
+            <p class="name">Deji Olatunde</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AMENITIES -->
+  <section class="amenities">
+    <div class="section-inner">
+      <h2>Premium Amenities</h2>
+      <p class="lead">Everything you need for a perfect stay</p>
+
+      <div class="amenities-grid">
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+          </div>
+          <h3>Free WiFi</h3>
+          <p>High-speed internet throughout the property</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3"/><path d="M9 17h2.5a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H9"/><path d="M22 17h-3"/><path d="M16 17h-2.5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2H16"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+          </div>
+          <h3>Free Parking</h3>
+          <p>Complimentary free parking service</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <h3>24/7 Room Service</h3>
+          <p>Round-the-clock dining and beverage service</p>
+        </article>
+
+        <article class="card">
+          <div class="icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <h3>Pool & Spa</h3>
+          <p>Relaxing pool and wellness facilities</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="offers">
+    <div class="section-inner">
+      <h2>Special Offers</h2>
+      <p class="lead">Exclusive packages and promotions for your perfect stay</p>
+
+      <div class="offers-grid">
+        <article class="offer-card">
+          <h3>Weekend Getaway</h3>
+          <p class="desc">Perfect for a relaxing weekend escape</p>
+          <ul>
+            <li>2 nights accommodation</li>
+            <li>Complimentary breakfast</li>
+            <li>Pool access</li>
+            <li>Welcome amenities</li>
+          </ul>
+          <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary" style="width:100%">Book Now</a>
+        </article>
+
+        <article class="offer-card">
+          <h3>Business Package</h3>
+          <p class="desc">Everything you need for productive business travel</p>
+          <ul>
+            <li>Executive room</li>
+            <li>Meeting room access</li>
+            <li>High-speed WiFi</li>
+            <li>Airport transfers</li>
+          </ul>
+          <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary" style="width:100%">Reserve</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter">
+    <div class="section-inner" style="max-width:600px">
+      <h2>Stay Updated</h2>
+      <p class="lead">Subscribe to our newsletter for exclusive offers and updates</p>
+      
+      <form class="newsletter-form">
+        <input type="email" placeholder="Enter your email address" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+      
+      <p class="newsletter-privacy">We respect your privacy. Unsubscribe at any time.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="footer-logo.webp" alt="The Willow Nest Hotel" class="footer-logo">
+          <p class="footer-desc">Experience timeless elegance, modern luxury, and authentic cultural touches across Nigeria.</p>
+          <div class="social-links">
+            <a href="https://instagram.com/thewillownest" target="_blank" aria-label="Instagram">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://facebook.com/thewillownest" target="_blank" aria-label="Facebook">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://linkedin.com/company/thewillownest" target="_blank" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="locations.html">Locations</a></li>
+            <li><a href="facilities.html">Facilities</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Our Locations</h3>
+          <ul>
+            <li><a href="location-ibadan.html">Ibadan (81 Rooms)</a></li>
+            <li><a href="location-ogbomosho.html">Ogbomosho (34 Rooms)</a></li>
+            <li><a href="location-abuja.html">Abuja (27 Rooms)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h3>Contact Info</h3>
+          <ul>
+            <li style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              +234 (0) 813 111 1808
+            </li>
+            <li style="display:flex;align-items:center;gap:8px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              reservations@thewillownest.com
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2024 The Willow Nest Hotel. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="hotel-policies.html">Hotel Policies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SLIDER SCRIPT -->
+  <script>
+    (function(){
+      const images = [
+        'images/home page/hero section slider/Deluxe King Room.jpg',
+        'images/home page/hero section slider/Elegant Interiors.jpg',
+        'images/home page/hero section slider/Executive Suites.jpg',
+        'images/home page/hero section slider/hero section BG.jpg',
+        'images/home page/hero section slider/Mini Suites.jpg',
+        'images/home page/hero section slider/Superior Room.jpg'
+      ];
+
+      const slider = document.getElementById('slider');
+      const dotsContainer = document.getElementById('dots');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+
+      let slides = [];
+      let dots = [];
+      let current = 0;
+      let timer = null;
+      const interval = 4000;
+
+      images.forEach((src, i) => {
+        const s = document.createElement('div');
+        s.className = 'slide';
+        s.style.backgroundImage = 'url("' + src + '")';
+        s.setAttribute('role','img');
+        s.setAttribute('aria-label','Slide ' + (i+1));
+        slider.appendChild(s);
+        slides.push(s);
+
+        const d = document.createElement('button');
+        d.className = 'dot';
+        d.setAttribute('aria-label','Go to slide ' + (i+1));
+        d.addEventListener('click', ()=>{ go(i); restart(); });
+        dotsContainer.appendChild(d);
+        dots.push(d);
+
+        const img = new Image(); img.src = src;
+      });
+
+      function show(n){
+        slides.forEach((s, i) => {
+          s.classList.toggle('active', i===n);
+          dots[i].classList.toggle('active', i===n);
+        });
+        current = n;
+      }
+      function go(n){
+        if(n<0) n = slides.length-1;
+        if(n>=slides.length) n = 0;
+        show(n);
+      }
+
+      prevBtn.addEventListener('click', ()=>{ go(current-1); restart(); });
+      nextBtn.addEventListener('click', ()=>{ go(current+1); restart(); });
+
+      function start(){
+        timer = setInterval(()=> go(current+1), interval);
+      }
+      function stop(){
+        clearInterval(timer); timer=null;
+      }
+      function restart(){ stop(); start(); }
+
+      if(slides.length){
+        show(0);
+        start();
+      }
+
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+      slider.addEventListener('focusin', stop);
+      slider.addEventListener('focusout', start);
+    })();
+
+    // Mobile menu toggle
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('menuOverlay');
+      menu.classList.toggle('active');
+      overlay.classList.toggle('active');
+    }
+
+    // Submenu toggle
+    function toggleSubmenu(e) {
+      e.preventDefault();
+      const submenu = document.getElementById('locationsSubmenu');
+      submenu.classList.toggle('active');
+    }
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,47 @@
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="header-logo.webp" alt="The Willow Nest Hotel">
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="nav-dropdown">
+        <a href="locations.html">Locations ▾</a>
+        <div class="nav-dropdown-content">
+          <a href="location-ibadan.html">Ibadan</a>
+          <a href="location-ogbomosho.html">Ogbomosho</a>
+          <a href="location-abuja.html">Abuja</a>
+        </div>
+      </div>
+      <a href="facilities.html">Facilities</a>
+      <a href="contact.html">Contact</a>
+      <a href="faq.html">FAQ</a>
+      <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary">Book Now</a>
+    </div>
+    <button class="mobile-toggle" aria-label="Toggle menu" onclick="toggleMobileMenu()">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <h3>Menu</h3>
+    <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">×</button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="#" onclick="toggleSubmenu(event)">Locations ▾</a>
+  <div class="submenu" id="locationsSubmenu">
+    <a href="location-ibadan.html">Ibadan</a>
+    <a href="location-ogbomosho.html">Ogbomosho</a>
+    <a href="location-abuja.html">Abuja</a>
+  </div>
+  <a href="facilities.html">Facilities</a>
+  <a href="contact.html">Contact</a>
+  <a href="faq.html">FAQ</a>
+  <a href="https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y" target="_blank" class="btn btn-primary" style="margin-top:16px">Book Now</a>
+</div>
+
