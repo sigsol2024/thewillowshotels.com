@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -562,10 +562,37 @@
         border-radius:12px;
       }
     }
+  
+    /* LOYALTY TOP BAR */
+    .loyalty-topbar{background:var(--bg-dark);color:#fff;font-size:13px}
+    .loyalty-topbar-inner{max-width:var(--max-width);margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .loyalty-topbar-label{color:#fff;font-weight:500;white-space:nowrap}
+    .loyalty-topbar-ctas{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .loyalty-topbar-btn{display:inline-block;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);color:#222;white-space:nowrap;transition:all .2s ease}
+    .loyalty-topbar-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(214,150,32,0.28)}
+    @media (max-width:780px){
+      .loyalty-topbar-inner{padding:8px 14px;gap:8px}
+      .loyalty-topbar-label{font-size:12px}
+      .loyalty-topbar-btn{padding:5px 10px;font-size:11px}
+    }
+    @media (max-width:480px){
+      .loyalty-topbar-inner{flex-direction:column;align-items:stretch;text-align:center}
+      .loyalty-topbar-ctas{justify-content:center}
+    }
   </style>
 </head>
 <body>
 
+    <!-- LOYALTY TOP BAR -->
+  <div class="loyalty-topbar">
+    <div class="loyalty-topbar-inner">
+      <span class="loyalty-topbar-label">Loyalty Program</span>
+      <div class="loyalty-topbar-ctas">
+        <a href="https://www.rewardbooth.com/thewillowshotels/enroll" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-btn">Get Started</a>
+        <a href="https://www.rewardbooth.com/thewillowshotels/balance" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-btn">Check Reward Balance</a>
+      </div>
+    </div>
+  </div>
   <!-- NAVIGATION -->
   <nav>
     <div class="nav-container">

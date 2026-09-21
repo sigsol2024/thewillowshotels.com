@@ -502,11 +502,98 @@
     .footer-bottom-links a{color:rgba(255,255,255,0.7); text-decoration:none; font-size:14px}
     .footer-bottom-links a:hover{color:var(--accent)}
 
+    /* LOYALTY TOP BAR */
+    .loyalty-topbar{
+      background:var(--bg-dark);
+      color:#fff;
+      font-size:13px;
+    }
+    .loyalty-topbar-inner{
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:8px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .loyalty-topbar-label{
+      color:#fff;
+      font-weight:500;
+      white-space:nowrap;
+    }
+    .loyalty-topbar-ctas{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .loyalty-topbar-btn{
+      display:inline-block;
+      padding:6px 14px;
+      border-radius:6px;
+      font-size:12px;
+      font-weight:600;
+      text-decoration:none;
+      background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);
+      color:#222;
+      white-space:nowrap;
+      transition:all .2s ease;
+    }
+    .loyalty-topbar-btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 4px 12px rgba(214,150,32,0.28);
+    }
+
+    /* LOYALTY PROGRAM SECTION */
+    .loyalty-program{
+      background:var(--card-bg);
+      padding:80px 20px;
+    }
+    .loyalty-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:48px;
+      align-items:center;
+    }
+    .loyalty-img{
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 12px 36px rgba(0,0,0,0.1);
+    }
+    .loyalty-img img{
+      width:100%;
+      height:420px;
+      object-fit:cover;
+      display:block;
+    }
+    .loyalty-content h2{
+      font-family:'Playfair Display', serif;
+      font-size:36px;
+      margin:0 0 16px;
+      text-align:left;
+    }
+    .loyalty-content p{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:16px;
+      margin:0 0 28px;
+    }
+    .loyalty-ctas{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .loyalty-ctas .btn{min-width:160px}
+
     /* Responsive */
     @media (max-width:1100px){
       .cards{grid-template-columns:repeat(3,1fr)}
       .location-grid{grid-template-columns:repeat(2,1fr)}
       .about-grid{grid-template-columns:1fr}
+      .loyalty-grid{grid-template-columns:1fr; gap:32px}
+      .loyalty-img img{height:320px}
       .testimonial-grid{grid-template-columns:repeat(2,1fr)}
       .amenities-grid{grid-template-columns:repeat(2,1fr)}
       .offers-grid{grid-template-columns:1fr}
@@ -529,10 +616,39 @@
       .about-values{grid-template-columns:1fr}
       .footer-grid{grid-template-columns:1fr}
       .newsletter-form{flex-direction:column}
+      .loyalty-topbar-inner{padding:8px 14px; gap:8px}
+      .loyalty-topbar-label{font-size:12px}
+      .loyalty-topbar-btn{padding:5px 10px; font-size:11px}
+      .loyalty-program{padding:60px 20px}
+      .loyalty-content h2{font-size:28px; text-align:center}
+      .loyalty-content p{text-align:center}
+      .loyalty-ctas{justify-content:center}
+      .loyalty-img img{height:280px}
+    }
+    @media (max-width:480px){
+      .loyalty-topbar-inner{
+        flex-direction:column;
+        align-items:stretch;
+        text-align:center;
+      }
+      .loyalty-topbar-ctas{justify-content:center}
+      .loyalty-ctas{flex-direction:column}
+      .loyalty-ctas .btn{width:100%}
     }
   </style>
 </head>
 <body>
+
+  <!-- LOYALTY TOP BAR -->
+  <div class="loyalty-topbar">
+    <div class="loyalty-topbar-inner">
+      <span class="loyalty-topbar-label">Loyalty Program</span>
+      <div class="loyalty-topbar-ctas">
+        <a href="https://www.rewardbooth.com/thewillowshotels/enroll" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-btn">Get Started</a>
+        <a href="https://www.rewardbooth.com/thewillowshotels/balance" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-btn">Check Reward Balance</a>
+      </div>
+    </div>
+  </div>
 
   <!-- NAVIGATION -->
   <nav>
@@ -787,6 +903,25 @@
             <a href="location-abuja.html" class="btn btn-outline" style="width:100%">Explore Abuja</a>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOYALTY PROGRAM -->
+  <section class="loyalty-program">
+    <div class="section-inner">
+      <div class="loyalty-grid">
+        <div class="loyalty-img">
+          <img src="images/home page/reward_man_image.jpg" alt="The Willow Nest Loyalty Program">
+        </div>
+        <div class="loyalty-content">
+          <h2>Loyalty Program</h2>
+          <p>Join The Willow Nest rewards program and earn points with every stay. Unlock exclusive member benefits, special rates, and memorable experiences across our hotels in Ibadan, Ogbomosho, and Abuja.</p>
+          <div class="loyalty-ctas">
+            <a href="https://www.rewardbooth.com/thewillowshotels/enroll" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Get Started</a>
+            <a href="https://www.rewardbooth.com/thewillowshotels/balance" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Check Reward Balance</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
