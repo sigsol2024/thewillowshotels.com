@@ -1,5 +1,5 @@
-﻿# The Willow Nest — clean URLs + cache policy (Apache / LiteSpeed)
-# Upload to the site document root alongside index.html.
+﻿# The Willow Nest - clean URLs only
+# Keep this minimal because some shared hosts reject header/expires directives.
 
 DirectoryIndex index.html
 
@@ -13,39 +13,11 @@ DirectoryIndex index.html
 
   # /page.html -> /page
   RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
-  RewriteRule ^ %1 [R=301,L]
+  RewriteRule ^(.+?)\.html$ /$1 [R=301,L]
 
   # Serve /page from page.html (do not touch real files/folders)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME}.html -f
   RewriteRule ^(.+?)/?$ $1.html [L]
-</IfModule>
-
-<IfModule mod_headers.c>
-  # HTML — never serve stale pages
-  <FilesMatch "\.(html?)$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
-  </FilesMatch>
-
-  # Shared chrome must always revalidate
-  <FilesMatch "(site-chrome|common-scripts|common-styles)\.(js|css)$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
-  </FilesMatch>
-
-  # Media can cache longer
-  <FilesMatch "\.(png|jpe?g|gif|webp|ico|svg|woff2?)$">
-    Header set Cache-Control "public, max-age=604800"
-  </FilesMatch>
-</IfModule>
-
-<IfModule mod_expires.c>
-  ExpiresActive On
-  ExpiresByType text/html "access plus 0 seconds"
-  ExpiresByType text/css "access plus 0 seconds"
-  ExpiresByType application/javascript "access plus 0 seconds"
 </IfModule>
