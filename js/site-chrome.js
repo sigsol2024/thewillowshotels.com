@@ -1,9 +1,9 @@
-/**
+﻿/**
  * Shared site chrome (Silkwood-style): loyalty top bar + nav + mobile menu + footer.
  * Update CACHE_BUST and the ?v= on script tags when shipping chrome changes.
  */
 (function () {
-  var CACHE_BUST = '20260922c';
+  var CACHE_BUST = '20260922d';
   var ENROLL = 'https://www.rewardbooth.com/thewillowshotels/enroll';
   var BALANCE = 'https://www.rewardbooth.com/thewillowshotels/balance';
   var BOOK =
@@ -47,24 +47,24 @@
     var style = document.createElement('style');
     style.id = 'willow-chrome-styles';
     style.textContent = [
-      '.loyalty-topbar{background:var(--bg-dark,#3a3736)!important;color:#fff;font-size:11px;position:relative;z-index:110}',
-      '.loyalty-topbar-inner{max-width:var(--max-width,1200px);margin:0 auto;padding:2px 20px!important;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:0}',
-      '.loyalty-topbar-label{color:#fff!important;font-weight:500;white-space:nowrap;font-size:11px!important;line-height:1.2}',
+      '.loyalty-topbar{background:var(--bg-dark,#3a3736)!important;color:#fff;font-size:12px;position:relative;z-index:110}',
+      '.loyalty-topbar-inner{max-width:var(--max-width,1200px);margin:0 auto;padding:6px 20px!important;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:0}',
+      '.loyalty-topbar-label{color:#fff!important;font-weight:500;white-space:nowrap;font-size:12px!important;line-height:1.3}',
       '.loyalty-topbar-ctas{display:flex;align-items:center;gap:14px;flex-shrink:0;justify-content:flex-end;flex-wrap:nowrap}',
       '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{',
       'display:inline!important;background:none!important;border:0!important;border-radius:0!important;',
       'box-shadow:none!important;padding:0!important;min-width:0!important;margin:0!important;',
-      'color:var(--accent,#d9a51a)!important;font-size:11px!important;font-weight:500!important;',
-      'line-height:1.2!important;text-decoration:none!important;white-space:nowrap;cursor:pointer;transition:color .2s ease',
+      'color:var(--accent,#d9a51a)!important;font-size:12px!important;font-weight:500!important;',
+      'line-height:1.3!important;text-decoration:none!important;white-space:nowrap;cursor:pointer;transition:color .2s ease',
       '}',
       '.loyalty-topbar a.loyalty-topbar-link:hover,.loyalty-topbar a.loyalty-topbar-btn:hover{',
       'color:var(--accent-2,#e6b93a)!important;transform:none!important;box-shadow:none!important;text-decoration:underline',
       '}',
       '@media (max-width:780px){',
-      '.loyalty-topbar-inner{padding:2px 12px!important;gap:8px;flex-direction:row!important;align-items:center!important;text-align:left!important}',
-      '.loyalty-topbar-label{font-size:10px!important}',
+      '.loyalty-topbar-inner{padding:5px 12px!important;gap:8px;flex-direction:row!important;align-items:center!important;text-align:left!important}',
+      '.loyalty-topbar-label{font-size:11px!important}',
       '.loyalty-topbar-ctas{gap:10px;justify-content:flex-end!important}',
-      '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{font-size:10px!important}',
+      '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{font-size:11px!important}',
       '}'
     ].join('');
     document.head.appendChild(style);
