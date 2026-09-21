@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    # The repository path in cPanel is already the site document root:
+    # /home/signlwzv/thewillowshotels.com
+    # Keep deployment as a no-op so cPanel accepts and publishes the checked-out files.
+    - /bin/true
