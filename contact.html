@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
   <title>Contact Us - The Willow Nest Hotel</title>
   <meta name="description" content="Get in touch with us for reservations, inquiries, or any assistance you may need">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
@@ -117,27 +119,24 @@
     }
   
     /* LOYALTY TOP BAR */
-    .loyalty-topbar{background:var(--bg-dark);color:#fff;font-size:13px}
-    .loyalty-topbar-inner{max-width:var(--max-width);margin:0 auto;padding:8px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .loyalty-topbar-label{color:#fff;font-weight:500;white-space:nowrap}
-    .loyalty-topbar-ctas{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-    .loyalty-topbar-btn{display:inline-block;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:600;text-decoration:none;background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);color:#222;white-space:nowrap;transition:all .2s ease}
-    .loyalty-topbar-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(214,150,32,0.28)}
+    .loyalty-topbar{background:var(--bg-dark);color:#fff;font-size:12px;position:relative;z-index:110}
+    .loyalty-topbar-inner{max-width:var(--max-width);margin:0 auto;padding:4px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .loyalty-topbar-label{color:#fff;font-weight:500;white-space:nowrap;font-size:12px;line-height:1.2}
+    .loyalty-topbar-ctas{display:flex;align-items:center;gap:6px;flex-shrink:0;justify-content:flex-end}
+    .loyalty-topbar-btn{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:600;text-decoration:none;background:linear-gradient(180deg,var(--accent) 0%, var(--accent-2) 100%);color:#222;white-space:nowrap;line-height:1.3;transition:all .2s ease}
+    .loyalty-topbar-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(214,150,32,0.28)}
     @media (max-width:780px){
-      .loyalty-topbar-inner{padding:8px 14px;gap:8px}
-      .loyalty-topbar-label{font-size:12px}
-      .loyalty-topbar-btn{padding:5px 10px;font-size:11px}
-    }
-    @media (max-width:480px){
-      .loyalty-topbar-inner{flex-direction:column;align-items:stretch;text-align:center}
-      .loyalty-topbar-ctas{justify-content:center}
+      .loyalty-topbar-inner{padding:3px 12px;gap:6px}
+      .loyalty-topbar-label{font-size:10px}
+      .loyalty-topbar-btn{padding:2px 7px;font-size:9px;border-radius:3px}
+      .loyalty-topbar-ctas{gap:4px}
     }
   </style>
 </head>
 <body>
 
   <!-- LOYALTY TOP BAR -->
-  <div class="loyalty-topbar">
+  <div class="loyalty-topbar" data-loyalty-bar="v2">
     <div class="loyalty-topbar-inner">
       <span class="loyalty-topbar-label">Loyalty Program</span>
       <div class="loyalty-topbar-ctas">
@@ -148,11 +147,11 @@
   </div>
   <nav>
     <div class="nav-container">
-      <a href="index.html" class="logo">
+      <a href="/" class="logo">
         <img src="header-logo.webp" alt="The Willow Nest Hotel">
       </a>
       <div class="nav-links">
-        <a href="index.html">Home</a>
+        <a href="/">Home</a>
         <a href="about.html">About</a>
         <div class="nav-dropdown">
           <a href="locations.html">Locations ▾</a>
@@ -174,7 +173,7 @@
   <!-- MOBILE MENU -->
   <div class="menu-overlay" id="menuOverlay" onclick="toggleMobileMenu()"></div>
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Home</a>
+    <a href="/">Home</a>
     <a href="about.html">About</a>
     <a href="#" onclick="toggleSubmenu(event)">Locations ▾</a>
     <div class="submenu" id="locationsSubmenu">
@@ -318,7 +317,7 @@
         <div class="footer-col">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="/">Home</a></li>
             <li><a href="about.html">About Us</a></li>
             <li><a href="locations.html">Locations</a></li>
             <li><a href="facilities.html">Facilities</a></li>
@@ -373,6 +372,7 @@
       submenu.classList.toggle('active');
     }
   </script>
+  <script src="common-scripts.js?v=20260921b"></script>
 </body>
 </html>
 
