@@ -1,5 +1,5 @@
-# The Willow Nest — Apache / LiteSpeed cache + clean homepage URL
-# Upload to document root. HTML must revalidate so chrome updates show immediately.
+﻿# The Willow Nest — clean URLs + cache policy (Apache / LiteSpeed)
+# Upload to the site document root alongside index.html.
 
 DirectoryIndex index.html
 
@@ -7,9 +7,19 @@ DirectoryIndex index.html
   RewriteEngine On
   RewriteBase /
 
-  # /index.html → /
+  # /index.html -> /
   RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
   RewriteRule ^index\.html$ / [R=301,L]
+
+  # /page.html -> /page
+  RewriteCond %{THE_REQUEST} \s/+(.+?)\.html[\s?] [NC]
+  RewriteRule ^ %1 [R=301,L]
+
+  # Serve /page from page.html (do not touch real files/folders)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+?)/?$ $1.html [L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -27,13 +37,12 @@ DirectoryIndex index.html
     Header set Expires "0"
   </FilesMatch>
 
-  # Images can cache longer
+  # Media can cache longer
   <FilesMatch "\.(png|jpe?g|gif|webp|ico|svg|woff2?)$">
     Header set Cache-Control "public, max-age=604800"
   </FilesMatch>
 </IfModule>
 
-# Extra belt-and-suspenders for hosts that ignore FilesMatch on HTML
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType text/html "access plus 0 seconds"
