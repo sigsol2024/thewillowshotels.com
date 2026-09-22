@@ -1,7 +1,12 @@
 ---
 deployment:
   tasks:
-    # The repository path in cPanel is already the site document root:
-    # /home/signlwzv/thewillowshotels.com
-    # Keep deployment as a no-op so cPanel accepts and publishes the checked-out files.
-    - /bin/true
+    # Force-heal DocumentRoot after checkout. Repo path is the site root.
+    # Keep .htaccess minimal: disallowed directives (Options/Headers/Rewrite) 500 on this host.
+    - /bin/bash -lc 'SITE=/home/signlwzv/thewillowshotels.com; printf "%s\n" "DirectoryIndex index.html" > "$SITE/.htaccess"; chmod 644 "$SITE/.htaccess"'
+    - /bin/bash -lc 'SITE=/home/signlwzv/thewillowshotels.com; printf "%s\n" "Willows deploy test - $(date -u +%Y-%m-%dT%H:%M:%SZ) - cpanel-heal" > "$SITE/deploy-test.txt"; chmod 644 "$SITE/deploy-test.txt"'
+    - /bin/bash -lc 'SITE=/home/signlwzv/thewillowshotels.com; rm -f "$SITE/.htaccess.broken" "$SITE/.htaccess.bak" 2>/dev/null; true'
+    # If this domain is also mirrored under public_html (Willow Nest content), sync there too.
+    - /bin/bash -lc 'SRC=/home/signlwzv/thewillowshotels.com; DST=/home/signlwzv/public_html; if [ -d "$DST" ] && [ -f "$DST/index.html" ] && grep -q "Willow Nest" "$DST/index.html" 2>/dev/null; then rsync -a --delete --exclude .git --exclude Backup --exclude .cpanel.yml "$SRC"/ "$DST"/; printf "%s\n" "DirectoryIndex index.html" > "$DST/.htaccess"; chmod 644 "$DST/.htaccess"; fi'
+    # Best-effort cache wipe (safe if paths missing).
+    - /bin/bash -lc 'rm -rf /home/signlwzv/lscache/* /home/signlwzv/thewillowshotels.com/lscache/* /home/signlwzv/tmp/lscache/* 2>/dev/null; true'

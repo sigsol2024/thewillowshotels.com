@@ -1,1 +1,1 @@
-﻿# Disabled intentionally. Clean URLs are served by physical folders, not rewrite rules.
+﻿DirectoryIndex index.html
