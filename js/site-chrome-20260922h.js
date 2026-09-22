@@ -3,7 +3,7 @@
  * Update CACHE_BUST and rename fingerprinted filenames when shipping chrome changes. Do not use ?v= query busting on this host.
  */
 (function () {
-  var CACHE_BUST = '20260922l';
+  var CACHE_BUST = '20260922m';
   var LOYALTY_SECTION = '/#loyalty';
   var BOOK =
     'https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y';
@@ -49,6 +49,8 @@
     style.textContent = [
       /* Top bar scrolls away; only the main nav sticks */
       '#site-header-root{position:static!important}',
+      'html{overflow-x:clip}',
+      'body{overflow-x:clip}',
       '.loyalty-topbar{background:var(--bg-dark,#3a3736)!important;color:#fff;font-size:12px;',
       'position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;',
       'z-index:90}',
