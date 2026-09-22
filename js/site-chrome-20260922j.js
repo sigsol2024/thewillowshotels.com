@@ -3,9 +3,8 @@
  * Update CACHE_BUST and rename fingerprinted filenames when shipping chrome changes. Do not use ?v= query busting on this host.
  */
 (function () {
-  var CACHE_BUST = '20260922j';
-  var ENROLL = 'https://www.rewardbooth.com/thewillowshotels/enroll';
-  var BALANCE = 'https://www.rewardbooth.com/thewillowshotels/balance';
+  var CACHE_BUST = '20260922k';
+  var LOYALTY_SECTION = '/#loyalty';
   var BOOK =
     'https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y';
 
@@ -61,11 +60,13 @@
       '.loyalty-topbar a.loyalty-topbar-link:hover,.loyalty-topbar a.loyalty-topbar-btn:hover{',
       'color:var(--accent-2,#e6b93a)!important;transform:none!important;box-shadow:none!important;text-decoration:underline',
       '}',
+      '#loyalty{scroll-margin-top:120px}',
       '@media (max-width:780px){',
       '.loyalty-topbar-inner{padding:5px 12px!important;gap:8px;flex-direction:row!important;align-items:center!important;text-align:left!important}',
-      '.loyalty-topbar-label{font-size:11px!important}',
-      '.loyalty-topbar-ctas{gap:10px;justify-content:flex-end!important}',
-      '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{font-size:11px!important}',
+      '.loyalty-topbar-label{font-size:11px!important;display:none}',
+      '.loyalty-topbar-ctas{gap:10px;justify-content:flex-end!important;flex:1;min-width:0}',
+      '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{font-size:11px!important;white-space:normal;text-align:right}',
+      '#loyalty{scroll-margin-top:100px}',
       '}'
     ].join('');
     document.head.appendChild(style);
@@ -77,10 +78,18 @@
       '<div class="loyalty-topbar-inner">' +
       '<span class="loyalty-topbar-label">Loyalty Program</span>' +
       '<div class="loyalty-topbar-ctas">' +
-      '<a href="' + ENROLL + '" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-link">Get Started</a>' +
-      '<a href="' + BALANCE + '" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-link">Check Balance</a>' +
+      '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link">Sign up for our loyalty program</a>' +
       '</div></div></div>'
     );
+  }
+
+  function scrollToLoyaltySection() {
+    if ((location.hash || '').toLowerCase() !== '#loyalty') return;
+    var el = document.getElementById('loyalty');
+    if (!el) return;
+    window.requestAnimationFrame(function () {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   }
 
   function renderNavLinks(page, mobile) {
@@ -191,8 +200,7 @@
     var ctas = bar.querySelector('.loyalty-topbar-ctas');
     if (!ctas) return;
     ctas.innerHTML =
-      '<a href="' + ENROLL + '" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-link">Get Started</a>' +
-      '<a href="' + BALANCE + '" target="_blank" rel="noopener noreferrer" class="loyalty-topbar-link">Check Balance</a>';
+      '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link">Sign up for our loyalty program</a>';
   }
 
   function upgradeLoyaltySection() {
@@ -200,9 +208,8 @@
     if (title && /^loyalty program$/i.test(title.textContent.trim())) {
       title.textContent = 'The Willow Nest Loyalty Program';
     }
-    Array.prototype.slice.call(document.querySelectorAll('.loyalty-ctas a, .loyalty-topbar a')).forEach(function (a) {
-      if (/check\s*reward\s*balance/i.test(a.textContent)) a.textContent = 'Check Balance';
-    });
+    var section = document.querySelector('.loyalty-program');
+    if (section && !section.id) section.id = 'loyalty';
   }
 
   function initChrome() {
@@ -240,6 +247,8 @@
     }
 
     upgradeLoyaltySection();
+    scrollToLoyaltySection();
+    window.addEventListener('hashchange', scrollToLoyaltySection);
   }
 
   if (document.readyState === 'loading') {
