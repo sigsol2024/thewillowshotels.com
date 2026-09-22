@@ -3,7 +3,7 @@
  * Update CACHE_BUST and rename fingerprinted filenames when shipping chrome changes. Do not use ?v= query busting on this host.
  */
 (function () {
-  var CACHE_BUST = '20260922k';
+  var CACHE_BUST = '20260922l';
   var LOYALTY_SECTION = '/#loyalty';
   var BOOK =
     'https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y';
@@ -47,9 +47,13 @@
     var style = document.createElement('style');
     style.id = 'willow-chrome-styles';
     style.textContent = [
-      '.loyalty-topbar{background:var(--bg-dark,#3a3736)!important;color:#fff;font-size:12px;position:relative;z-index:110}',
-      '.loyalty-topbar-inner{max-width:var(--max-width,1200px);margin:0 auto;padding:6px 20px!important;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:0}',
-      '.loyalty-topbar-label{color:#fff!important;font-weight:500;white-space:nowrap;font-size:12px!important;line-height:1.3}',
+      /* Top bar scrolls away; only the main nav sticks */
+      '#site-header-root{position:static!important}',
+      '.loyalty-topbar{background:var(--bg-dark,#3a3736)!important;color:#fff;font-size:12px;',
+      'position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;',
+      'z-index:90}',
+      '.loyalty-topbar-inner{max-width:var(--max-width,1200px);margin:0 auto;padding:6px 20px!important;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:0}',
+      '.loyalty-topbar-label{color:#fff!important;font-weight:500;white-space:nowrap;font-size:12px!important;line-height:1.3;overflow:hidden;text-overflow:ellipsis}',
       '.loyalty-topbar-ctas{display:flex;align-items:center;gap:14px;flex-shrink:0;justify-content:flex-end;flex-wrap:nowrap}',
       '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{',
       'display:inline!important;background:none!important;border:0!important;border-radius:0!important;',
@@ -60,13 +64,15 @@
       '.loyalty-topbar a.loyalty-topbar-link:hover,.loyalty-topbar a.loyalty-topbar-btn:hover{',
       'color:var(--accent-2,#e6b93a)!important;transform:none!important;box-shadow:none!important;text-decoration:underline',
       '}',
-      '#loyalty{scroll-margin-top:120px}',
+      '#site-header-root nav, body > nav, nav{',
+      'position:sticky!important;top:0!important;z-index:100!important',
+      '}',
+      '#loyalty{scroll-margin-top:0}',
       '@media (max-width:780px){',
       '.loyalty-topbar-inner{padding:5px 12px!important;gap:8px;flex-direction:row!important;align-items:center!important;text-align:left!important}',
-      '.loyalty-topbar-label{font-size:11px!important;display:none}',
-      '.loyalty-topbar-ctas{gap:10px;justify-content:flex-end!important;flex:1;min-width:0}',
-      '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{font-size:11px!important;white-space:normal;text-align:right}',
-      '#loyalty{scroll-margin-top:100px}',
+      '.loyalty-topbar-label{font-size:10px!important;white-space:normal;max-width:58%}',
+      '.loyalty-topbar-ctas{gap:10px;justify-content:flex-end!important;flex-shrink:0}',
+      '.loyalty-topbar a.loyalty-topbar-link,.loyalty-topbar a.loyalty-topbar-btn{font-size:11px!important}',
       '}'
     ].join('');
     document.head.appendChild(style);
@@ -76,19 +82,58 @@
     return (
       '<div class="loyalty-topbar" data-loyalty-bar="' + CACHE_BUST + '">' +
       '<div class="loyalty-topbar-inner">' +
-      '<span class="loyalty-topbar-label">Loyalty Program</span>' +
+      '<span class="loyalty-topbar-label">The Willow Nest Loyalty Programme</span>' +
       '<div class="loyalty-topbar-ctas">' +
-      '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link">Sign up for our loyalty program</a>' +
+      '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link" data-loyalty-scroll="1">Sign up Now</a>' +
       '</div></div></div>'
     );
   }
 
-  function scrollToLoyaltySection() {
+  function stickyNavOffset() {
+    var nav =
+      document.querySelector('#site-header-root nav') ||
+      document.querySelector('nav');
+    if (!nav) return 80;
+    return Math.ceil(nav.getBoundingClientRect().height) || 80;
+  }
+
+  function scrollToLoyaltySection(opts) {
     if ((location.hash || '').toLowerCase() !== '#loyalty') return;
     var el = document.getElementById('loyalty');
     if (!el) return;
-    window.requestAnimationFrame(function () {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var align = function (behavior) {
+      var top = el.getBoundingClientRect().top + window.pageYOffset - stickyNavOffset() - 12;
+      if (top < 0) top = 0;
+      window.scrollTo({ top: top, behavior: behavior || 'auto' });
+    };
+    // Native hash jump often lands mid-section; correct after layout settles.
+    align(opts && opts.instant ? 'auto' : 'smooth');
+    window.setTimeout(function () {
+      align('auto');
+    }, 50);
+    window.setTimeout(function () {
+      align('auto');
+    }, 350);
+  }
+
+  var loyaltyScrollBound = false;
+  function bindLoyaltyScrollLink() {
+    if (loyaltyScrollBound) return;
+    loyaltyScrollBound = true;
+    document.addEventListener('click', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-loyalty-scroll]') : null;
+      if (!a) return;
+      var onHome =
+        detectPage() === 'home' ||
+        location.pathname === '/' ||
+        /\/index\.html?$/i.test(location.pathname || '');
+      if (!onHome) return;
+      e.preventDefault();
+      if (location.hash.toLowerCase() !== '#loyalty') {
+        if (history.pushState) history.pushState(null, '', '#loyalty');
+        else location.hash = 'loyalty';
+      }
+      scrollToLoyaltySection();
     });
   }
 
@@ -200,7 +245,7 @@
     var ctas = bar.querySelector('.loyalty-topbar-ctas');
     if (!ctas) return;
     ctas.innerHTML =
-      '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link">Sign up for our loyalty program</a>';
+      '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link" data-loyalty-scroll="1">Sign up Now</a>';
   }
 
   function upgradeLoyaltySection() {
@@ -247,8 +292,14 @@
     }
 
     upgradeLoyaltySection();
-    scrollToLoyaltySection();
-    window.addEventListener('hashchange', scrollToLoyaltySection);
+    bindLoyaltyScrollLink();
+    scrollToLoyaltySection({ instant: true });
+    window.setTimeout(function () {
+      scrollToLoyaltySection();
+    }, 200);
+    window.addEventListener('hashchange', function () {
+      scrollToLoyaltySection();
+    });
   }
 
   if (document.readyState === 'loading') {

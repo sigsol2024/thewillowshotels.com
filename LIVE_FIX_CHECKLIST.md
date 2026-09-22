@@ -1,21 +1,21 @@
 # Live fix checklist (you run cPanel deploy)
 
-Local build stamp: **20260922k** (pushed to `main` as commit with clean folder URLs). Do not use `?v=` query cache-busting on this host.
+Local build stamp: **20260922l** (pushed to `main` as commit with clean folder URLs). Do not use `?v=` query cache-busting on this host.
 
 ## Locked failure set (still true until cPanel Deploy HEAD)
 
 | Check | Observed after GitHub push |
 | --- | --- |
-| Live `/` and `*.html` | **200**, but **Backup-era** body (inlined `<nav>`, no `site-header-root`, no `20260922k`) |
+| Live `/` and `*.html` | **200**, but **Backup-era** body (inlined `<nav>`, no `site-header-root`, no `20260922l`) |
 | `/deploy-test.txt`, `*.css`, `/js/*.js`, folder URLs (`/contact/`) | **500** (Apache; ErrorDocument also fails) |
-| GitHub `main` `deploy-test.txt` | Contains `20260922k` — code is on GitHub; **live DocumentRoot not updated** |
+| GitHub `main` `deploy-test.txt` | Contains `20260922l` — code is on GitHub; **live DocumentRoot not updated** |
 
 ## What already landed on GitHub
 
 - `.htaccess` (only `DirectoryIndex index.html`)
-- `.cpanel.yml` heals **both** `/home/signlwzv/thewillowshotels.com` and `public_html`, stamps `20260922k`, rsyncs when appropriate, clears LiteSpeed cache
-- `js/site-chrome-20260922k.js` — loyalty topbar + shared header/footer + **clean URLs** (`/about/`, `/contact/`, …)
-- `common-styles-20260922k.css` + all page refs
+- `.cpanel.yml` heals **both** `/home/signlwzv/thewillowshotels.com` and `public_html`, stamps `20260922l`, rsyncs when appropriate, clears LiteSpeed cache
+- `js/site-chrome-20260922l.js` — loyalty topbar + shared header/footer + **clean URLs** (`/about/`, `/contact/`, …)
+- `common-styles-20260922l.css` + all page refs
 - Root `*.html` kept as silent fallbacks; folders `*/index.html` for clean URLs
 
 ## You must do now (cPanel) — required for Phase 2/3
@@ -28,10 +28,10 @@ Local build stamp: **20260922k** (pushed to `main` as commit with clean folder U
 
 ## Pass criteria after Deploy HEAD
 
-1. `https://thewillowshotels.com/deploy-test.txt` → **200**, body contains `20260922k`.
-2. `https://thewillowshotels.com/js/site-chrome-20260922k.js` → **200**.
-3. `https://thewillowshotels.com/common-styles-20260922k.css` → **200**.
-4. `/` View Source contains `site-header-root` and `20260922k`; loyalty topbar appears in browser.
+1. `https://thewillowshotels.com/deploy-test.txt` → **200**, body contains `20260922l`.
+2. `https://thewillowshotels.com/js/site-chrome-20260922l.js` → **200**.
+3. `https://thewillowshotels.com/common-styles-20260922l.css` → **200**.
+4. `/` View Source contains `site-header-root` and `20260922l`; loyalty topbar appears in browser.
 5. `/contact/` and `/about/` → **200** (clean URLs).
 6. Same results in Chrome **and** Edge (hard refresh / private window).
 
