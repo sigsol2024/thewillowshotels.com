@@ -1,22 +1,22 @@
-﻿/**
+/**
  * Shared site chrome (Silkwood-style): loyalty top bar + nav + mobile menu + footer.
- * Update CACHE_BUST and the ?v= on script tags when shipping chrome changes.
+ * Update CACHE_BUST and rename fingerprinted filenames when shipping chrome changes. Do not use ?v= query busting on this host.
  */
 (function () {
-  var CACHE_BUST = '20260922h';
+  var CACHE_BUST = '20260922j';
   var ENROLL = 'https://www.rewardbooth.com/thewillowshotels/enroll';
   var BALANCE = 'https://www.rewardbooth.com/thewillowshotels/balance';
   var BOOK =
     'https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y';
 
-  // Use root-relative .html paths until folder URLs are proven live (this host 500s on bad rewrites).
+  // Clean folder URLs (physical page/index.html + DirectoryIndex). Keep root *.html as silent fallbacks.
   var NAV = [
     { id: 'home', label: 'Home', href: '/' },
-    { id: 'about', label: 'About', href: '/about.html' },
-    { id: 'locations', label: 'Locations', href: '/locations.html', dropdown: true },
-    { id: 'facilities', label: 'Facilities', href: '/facilities.html' },
-    { id: 'contact', label: 'Contact', href: '/contact.html' },
-    { id: 'faq', label: 'FAQ', href: '/faq.html' }
+    { id: 'about', label: 'About', href: '/about/' },
+    { id: 'locations', label: 'Locations', href: '/locations/', dropdown: true },
+    { id: 'facilities', label: 'Facilities', href: '/facilities/' },
+    { id: 'contact', label: 'Contact', href: '/contact/' },
+    { id: 'faq', label: 'FAQ', href: '/faq/' }
   ];
 
   function detectPage() {
@@ -92,17 +92,17 @@
           '<div class="nav-dropdown">' +
           '<a href="' + item.href + '"' + (active ? ' class="active"' : '') + '>Locations ▾</a>' +
           '<div class="nav-dropdown-content">' +
-          '<a href="/location-ibadan.html">Ibadan</a>' +
-          '<a href="/location-ogbomosho.html">Ogbomosho</a>' +
-          '<a href="/location-abuja.html">Abuja</a>' +
+          '<a href="/location-ibadan/">Ibadan</a>' +
+          '<a href="/location-ogbomosho/">Ogbomosho</a>' +
+          '<a href="/location-abuja/">Abuja</a>' +
           '</div></div>';
       } else if (item.dropdown && mobile) {
         html +=
           '<a href="#" onclick="toggleSubmenu(event)">Locations ▾</a>' +
           '<div class="submenu" id="locationsSubmenu">' +
-          '<a href="/location-ibadan.html">Ibadan</a>' +
-          '<a href="/location-ogbomosho.html">Ogbomosho</a>' +
-          '<a href="/location-abuja.html">Abuja</a>' +
+          '<a href="/location-ibadan/">Ibadan</a>' +
+          '<a href="/location-ogbomosho/">Ogbomosho</a>' +
+          '<a href="/location-abuja/">Abuja</a>' +
           '</div>';
       } else {
         html +=
@@ -146,17 +146,17 @@
       '<a href="https://linkedin.com/company/thewillownest" target="_blank" aria-label="LinkedIn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>' +
       '</div></div>' +
       '<div class="footer-col"><h3>Quick Links</h3><ul>' +
-      '<li><a href="/">Home</a></li><li><a href="/about.html">About Us</a></li><li><a href="/locations.html">Locations</a></li><li><a href="/facilities.html">Facilities</a></li><li><a href="/contact.html">Contact</a></li>' +
+      '<li><a href="/">Home</a></li><li><a href="/about/">About Us</a></li><li><a href="/locations/">Locations</a></li><li><a href="/facilities/">Facilities</a></li><li><a href="/contact/">Contact</a></li>' +
       '</ul></div>' +
       '<div class="footer-col"><h3>Our Locations</h3><ul>' +
-      '<li><a href="/location-ibadan.html">Ibadan (81 Rooms)</a></li><li><a href="/location-ogbomosho.html">Ogbomosho (34 Rooms)</a></li><li><a href="/location-abuja.html">Abuja (27 Rooms)</a></li>' +
+      '<li><a href="/location-ibadan/">Ibadan (81 Rooms)</a></li><li><a href="/location-ogbomosho/">Ogbomosho (34 Rooms)</a></li><li><a href="/location-abuja/">Abuja (27 Rooms)</a></li>' +
       '</ul></div>' +
       '<div class="footer-col"><h3>Contact Info</h3><ul>' +
       '<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+234 (0) 813 111 1808</li>' +
       '<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>reservations@thewillownest.com</li>' +
       '</ul></div></div>' +
       '<div class="footer-bottom"><p>© ' + new Date().getFullYear() + ' The Willow Nest Hotel. All rights reserved.</p>' +
-      '<div class="footer-bottom-links"><a href="/privacy-policy.html">Privacy Policy</a><a href="/hotel-policies.html">Hotel Policies</a></div>' +
+      '<div class="footer-bottom-links"><a href="/privacy-policy/">Privacy Policy</a><a href="/hotel-policies/">Hotel Policies</a></div>' +
       '</div></div></footer>'
     );
   }

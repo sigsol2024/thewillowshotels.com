@@ -1,12 +1,11 @@
 ---
 deployment:
   tasks:
-    # Force-heal DocumentRoot after checkout. Repo path is the site root.
-    # Keep .htaccess minimal: disallowed directives (Options/Headers/Rewrite) 500 on this host.
-    - /bin/bash -lc 'SITE=/home/signlwzv/thewillowshotels.com; printf "%s\n" "DirectoryIndex index.html" > "$SITE/.htaccess"; chmod 644 "$SITE/.htaccess"'
-    - /bin/bash -lc 'SITE=/home/signlwzv/thewillowshotels.com; printf "%s\n" "Willows deploy test - $(date -u +%Y-%m-%dT%H:%M:%SZ) - cpanel-heal" > "$SITE/deploy-test.txt"; chmod 644 "$SITE/deploy-test.txt"'
-    - /bin/bash -lc 'SITE=/home/signlwzv/thewillowshotels.com; rm -f "$SITE/.htaccess.broken" "$SITE/.htaccess.bak" 2>/dev/null; true'
-    # If this domain is also mirrored under public_html (Willow Nest content), sync there too.
-    - /bin/bash -lc 'SRC=/home/signlwzv/thewillowshotels.com; DST=/home/signlwzv/public_html; if [ -d "$DST" ] && [ -f "$DST/index.html" ] && grep -q "Willow Nest" "$DST/index.html" 2>/dev/null; then rsync -a --delete --exclude .git --exclude Backup --exclude .cpanel.yml "$SRC"/ "$DST"/; printf "%s\n" "DirectoryIndex index.html" > "$DST/.htaccess"; chmod 644 "$DST/.htaccess"; fi'
+    # Heal BOTH likely DocumentRoots. Options/Headers/Rewrite often 500 on this host.
+    # Clean URLs use physical folders + DirectoryIndex only — no RewriteRule.
+    - /bin/bash -lc 'heal(){ local D="$1"; [ -d "$D" ] || return 0; printf "%s\n" "DirectoryIndex index.html" > "$D/.htaccess"; chmod 644 "$D/.htaccess"; rm -f "$D/.htaccess.broken" "$D/.htaccess.bak" 2>/dev/null; true; }; heal /home/signlwzv/thewillowshotels.com; heal /home/signlwzv/public_html'
+    - /bin/bash -lc 'stamp(){ local D="$1"; [ -d "$D" ] || return 0; printf "%s\n" "Willows deploy test - $(date -u +%Y-%m-%dT%H:%M:%SZ) - build 20260922j - cpanel-heal" > "$D/deploy-test.txt"; chmod 644 "$D/deploy-test.txt"; }; stamp /home/signlwzv/thewillowshotels.com; stamp /home/signlwzv/public_html'
+    # If public_html looks like this site (or is empty of foreign brands), sync full tree from repo checkout.
+    - /bin/bash -lc 'SRC=/home/signlwzv/thewillowshotels.com; DST=/home/signlwzv/public_html; if [ -d "$DST" ] && [ -d "$SRC" ]; then if [ ! -f "$DST/index.html" ] || grep -qiE "Willow Nest|Willowshotels|thewillowshotels" "$DST/index.html" 2>/dev/null; then rsync -a --delete --exclude .git --exclude Backup --exclude .cpanel.yml "$SRC"/ "$DST"/; printf "%s\n" "DirectoryIndex index.html" > "$DST/.htaccess"; chmod 644 "$DST/.htaccess"; printf "%s\n" "Willows deploy test - $(date -u +%Y-%m-%dT%H:%M:%SZ) - build 20260922j - public_html-sync" > "$DST/deploy-test.txt"; chmod 644 "$DST/deploy-test.txt"; fi; fi'
     # Best-effort cache wipe (safe if paths missing).
-    - /bin/bash -lc 'rm -rf /home/signlwzv/lscache/* /home/signlwzv/thewillowshotels.com/lscache/* /home/signlwzv/tmp/lscache/* 2>/dev/null; true'
+    - /bin/bash -lc 'rm -rf /home/signlwzv/lscache/* /home/signlwzv/thewillowshotels.com/lscache/* /home/signlwzv/public_html/lscache/* /home/signlwzv/tmp/lscache/* 2>/dev/null; true'
