@@ -1,55 +1,43 @@
-# Live fix checklist (you run commit + deploy)
+# Live fix checklist (you run cPanel deploy)
 
-Local build stamp: **20260922j**. Do not use `?v=` query cache-busting on this host.
+Local build stamp: **20260922j** (pushed to `main` as commit with clean folder URLs). Do not use `?v=` query cache-busting on this host.
 
-## Locked failure set (prior probe; do not treat as current without recheck)
+## Locked failure set (still true until cPanel Deploy HEAD)
 
-| Check | Observed |
+| Check | Observed after GitHub push |
 | --- | --- |
-| curl DEFAULT UA on `/`, `*.html`, new assets, folders | **500** (Apache error HTML; ErrorDocument also failed; webmaster@…edwardandjones-ng.com) |
-| PowerShell Invoke-WebRequest `/` | **200**, len **53442** (stale body; not local `site-header-root` / `20260922j`) |
-| `/favicon.jpg` | **200**, size matched local |
-| Server header | `nginx` (front); error body is Apache-style |
-| cPanel UI ports | `:2083` / `:2087` reachable |
-| SSH private keys on this PC | none (only `known_hosts`) |
+| Live `/` and `*.html` | **200**, but **Backup-era** body (inlined `<nav>`, no `site-header-root`, no `20260922j`) |
+| `/deploy-test.txt`, `*.css`, `/js/*.js`, folder URLs (`/contact/`) | **500** (Apache; ErrorDocument also fails) |
+| GitHub `main` `deploy-test.txt` | Contains `20260922j` — code is on GitHub; **live DocumentRoot not updated** |
 
-## What you commit (when ready)
-
-Include at least:
+## What already landed on GitHub
 
 - `.htaccess` (only `DirectoryIndex index.html`)
-- `.cpanel.yml` (heal tasks above)
-- `deploy-test.txt`
-- `common-styles-20260922j.css`, `js/site-chrome-20260922j.js`
-- all updated `*.html` and folder `*/index.html`
-- `common-scripts.js`
+- `.cpanel.yml` heals **both** `/home/signlwzv/thewillowshotels.com` and `public_html`, stamps `20260922j`, rsyncs when appropriate, clears LiteSpeed cache
+- `js/site-chrome-20260922j.js` — loyalty topbar + shared header/footer + **clean URLs** (`/about/`, `/contact/`, …)
+- `common-styles-20260922j.css` + all page refs
+- Root `*.html` kept as silent fallbacks; folders `*/index.html` for clean URLs
 
-## Deploy (cPanel Git)
+## You must do now (cPanel) — required for Phase 2/3
 
-1. Push/commit your changes to `main` on GitHub.
-2. cPanel → Git Version Control → this repo → **Update from Remote**.
-3. Confirm **no uncommitted changes**, then **Deploy HEAD**.
-4. File Manager: open `/home/signlwzv/thewillowshotels.com/.htaccess` and confirm it is only `DirectoryIndex index.html` (dotfiles are easy to miss on upload).
-5. If the domain DocumentRoot is actually `public_html` (not the repo path), copy/sync the same tree there, or confirm the `.cpanel.yml` public_html sync ran.
+1. cPanel → **Git Version Control** → this repo → **Update from Remote**.
+2. Confirm no uncommitted server changes, then **Deploy HEAD**.
+3. File Manager: open DocumentRoot `.htaccess` (check both `thewillowshotels.com` and `public_html` if unsure) — must be only `DirectoryIndex index.html`.
+4. Clear LiteSpeed / host cache if present.
+5. If domain DocumentRoot is `public_html`, confirm `.cpanel.yml` sync ran or copy the tree there.
 
-## Pass criteria after deploy
+## Pass criteria after Deploy HEAD
 
 1. `https://thewillowshotels.com/deploy-test.txt` → **200**, body contains `20260922j`.
 2. `https://thewillowshotels.com/js/site-chrome-20260922j.js` → **200**.
 3. `https://thewillowshotels.com/common-styles-20260922j.css` → **200**.
-4. `https://thewillowshotels.com/` → **200** in Chrome **and** Edge; View Source contains `site-header-root` and `20260922j`.
-5. `about.html` / `contact.html` same as (4).
+4. `/` View Source contains `site-header-root` and `20260922j`; loyalty topbar appears in browser.
+5. `/contact/` and `/about/` → **200** (clean URLs).
+6. Same results in Chrome **and** Edge (hard refresh / private window).
 
-## If DEFAULT/old clients get 200 but Chrome/Edge still 500
+## If Deploy HEAD still 500s
 
-Do these one at a time (identify which clears the 500):
-
-1. Confirm live `.htaccess` is only `DirectoryIndex index.html` (no RewriteRule / ErrorDocument / Options / Headers).
-2. Clear LiteSpeed / nginx / host cache in cPanel.
-3. ModSecurity / Imunify360: check hits for those requests; whitelist or disable the blocking rule.
-4. Only after apex + `.html` work: Domains → force HTTPS + www→apex (or apex→www) redirects.
-5. Folder URLs (`/about/`, etc.) already exist as physical folders; switch nav to clean paths only after they return **200** for browser UAs.
-
-## Rollback
-
-Redeploy the previous known-good Git commit, or restore File Manager backup of `.htaccess` / site files from before this deploy.
+1. Manually replace live `.htaccess` with one line: `DirectoryIndex index.html`.
+2. Clear cache again.
+3. ModSecurity / Imunify360: check hits for `.js`/`.css`/`.txt` requests.
+4. Apache error_log for the exact directive failing.
