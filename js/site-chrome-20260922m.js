@@ -3,7 +3,7 @@
  * Update CACHE_BUST and rename fingerprinted filenames when shipping chrome changes. Do not use ?v= query busting on this host.
  */
 (function () {
-  var CACHE_BUST = '20260922m';
+  var CACHE_BUST = '20260922n';
   var LOYALTY_SECTION = '/#loyalty';
   var BOOK =
     'https://www.swiftbook.io/inst/#group?groupId=282NTh9QwE9ozesA6TSYxMzc=&JDRN=Y';
@@ -84,7 +84,7 @@
     return (
       '<div class="loyalty-topbar" data-loyalty-bar="' + CACHE_BUST + '">' +
       '<div class="loyalty-topbar-inner">' +
-      '<span class="loyalty-topbar-label">The Willow Nest Loyalty Programme</span>' +
+      '<span class="loyalty-topbar-label">The Willows Nest Loyalty Programme</span>' +
       '<div class="loyalty-topbar-ctas">' +
       '<a href="' + LOYALTY_SECTION + '" class="loyalty-topbar-link" data-loyalty-scroll="1">Sign up Now</a>' +
       '</div></div></div>'
@@ -173,7 +173,7 @@
     return (
       renderTopbar() +
       '<nav><div class="nav-container">' +
-      '<a href="/" class="logo"><img src="/header-logo.webp" alt="The Willow Nest Hotel"></a>' +
+      '<a href="/" class="logo"><img src="/header-logo.webp" alt="The Willows Nest Hotel"></a>' +
       '<div class="nav-links">' +
       renderNavLinks(page, false) +
       '<a href="' + BOOK + '" target="_blank" class="btn btn-primary">Book Now</a>' +
@@ -194,7 +194,7 @@
     return (
       '<footer><div class="footer-container"><div class="footer-grid">' +
       '<div class="footer-col">' +
-      '<img src="/footer-logo.webp" alt="The Willow Nest Hotel" class="footer-logo">' +
+      '<img src="/footer-logo.webp" alt="The Willows Nest Hotel" class="footer-logo">' +
       '<p class="footer-desc">Experience timeless elegance, modern luxury, and authentic cultural touches across Nigeria.</p>' +
       '<div class="social-links">' +
       '<a href="https://instagram.com/thewillownest" target="_blank" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>' +
@@ -209,9 +209,9 @@
       '</ul></div>' +
       '<div class="footer-col"><h3>Contact Info</h3><ul>' +
       '<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+234 (0) 813 111 1808</li>' +
-      '<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>reservations@thewillownest.com</li>' +
+      '<li style="display:flex;align-items:center;gap:8px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>info@thewillowshotels.com</li>' +
       '</ul></div></div>' +
-      '<div class="footer-bottom"><p>© ' + new Date().getFullYear() + ' The Willow Nest Hotel. All rights reserved.</p>' +
+      '<div class="footer-bottom"><p>© ' + new Date().getFullYear() + ' The Willows Nest Hotel. All rights reserved.</p>' +
       '<div class="footer-bottom-links"><a href="/privacy-policy/">Privacy Policy</a><a href="/hotel-policies/">Hotel Policies</a></div>' +
       '</div></div></footer>'
     );
@@ -253,7 +253,7 @@
   function upgradeLoyaltySection() {
     var title = document.querySelector('.loyalty-content h2');
     if (title && /^loyalty program$/i.test(title.textContent.trim())) {
-      title.textContent = 'The Willow Nest Loyalty Program';
+      title.textContent = 'The Willows Nest Loyalty Programme';
     }
     var section = document.querySelector('.loyalty-program');
     if (section && !section.id) section.id = 'loyalty';

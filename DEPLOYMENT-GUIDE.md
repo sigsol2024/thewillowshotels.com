@@ -1,9 +1,9 @@
-# The Willow Nest Hotel - Static HTML Version
+# The Willows Nest Hotel - Static HTML Version
 ## Deployment Guide
 
 ### 📁 What's Included
 
-This folder contains a complete static HTML/CSS/JavaScript version of The Willow Nest Hotel website with:
+This folder contains a complete static HTML/CSS/JavaScript version of The Willows Nest Hotel website with:
 
 - **12 Complete HTML Pages**
 - **70+ Images** (all properly organized)

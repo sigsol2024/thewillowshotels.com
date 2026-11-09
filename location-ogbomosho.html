@@ -7,8 +7,8 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
-  <title>Ogbomosho Hotel - The Willow Nest Hotel | 34 Rooms Traditional Elegance</title>
-  <meta name="description" content="Immerse yourself in rich cultural heritage while enjoying contemporary comfort. The Willow Nest Hotel Ogbomosho blends traditional architecture with modern luxury.">
+  <title>Ogbomosho Hotel - The Willows Nest Hotel | 34 Rooms Traditional Elegance</title>
+  <meta name="description" content="Immerse yourself in rich cultural heritage while enjoying contemporary comfort. The Willows Nest Hotel Ogbomosho blends traditional architecture with modern luxury.">
 
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
@@ -601,7 +601,7 @@
     }
 
   </style>
-  <link rel="stylesheet" href="/common-styles-20260922m.css" />
+  <link rel="stylesheet" href="/common-styles-20260922n.css" />
 </head>
 <body data-page="location-ogbomosho">
 
@@ -965,64 +965,134 @@
       submenu.classList.toggle('active');
     }
 
-    // Rooms Carousel
-    const carousels = {
-      ogbomosho: { currentIndex: 0, totalCards: 6 }
-    };
+        // Rooms Carousel — seamless infinite loop
+    const carousels = {};
+
+    function getCardsPerView() {
+      return window.innerWidth < 780 ? 2 : 4;
+    }
+
+    function getStep(track) {
+      const card = track.querySelector('.room-card');
+      if (!card) return 0;
+      return card.offsetWidth + 24;
+    }
+
+    function initCarousel(location) {
+      const track = document.getElementById(location + 'Carousel');
+      if (!track || track.dataset.loopReady === '1') return;
+
+      const originals = Array.from(track.querySelectorAll('.room-card'));
+      const total = originals.length;
+      if (!total) return;
+
+      originals.forEach(function (card) {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.appendChild(clone);
+      });
+      for (let i = originals.length - 1; i >= 0; i--) {
+        const clone = originals[i].cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        track.insertBefore(clone, track.firstChild);
+      }
+
+      carousels[location] = {
+        currentIndex: total,
+        totalCards: total,
+        animating: false
+      };
+
+      track.dataset.loopReady = '1';
+      track.style.transition = 'none';
+      track.style.transform = 'translateX(' + (-(total * getStep(track))) + 'px)';
+      void track.offsetHeight;
+      track.style.transition = 'transform .5s ease';
+
+      track.addEventListener('transitionend', function (e) {
+        if (e.target !== track || e.propertyName !== 'transform') return;
+        const c = carousels[location];
+        if (!c) return;
+        const step = getStep(track);
+        if (c.currentIndex >= c.totalCards * 2) {
+          track.style.transition = 'none';
+          c.currentIndex -= c.totalCards;
+          track.style.transform = 'translateX(' + (-(c.currentIndex * step)) + 'px)';
+          void track.offsetHeight;
+          track.style.transition = 'transform .5s ease';
+        } else if (c.currentIndex < c.totalCards) {
+          track.style.transition = 'none';
+          c.currentIndex += c.totalCards;
+          track.style.transform = 'translateX(' + (-(c.currentIndex * step)) + 'px)';
+          void track.offsetHeight;
+          track.style.transition = 'transform .5s ease';
+        }
+        c.animating = false;
+        updateDots(location);
+      });
+
+      updateDots(location);
+    }
 
     function moveCarousel(location, direction) {
       const carousel = carousels[location];
       const track = document.getElementById(location + 'Carousel');
-      const cardWidth = track.querySelector('.room-card').offsetWidth;
-      const gap = 24;
-      const cardsPerView = window.innerWidth < 780 ? 2 : 4;
-      
+      if (!carousel || !track || carousel.animating) return;
+      carousel.animating = true;
       carousel.currentIndex += direction;
-      
-      if (carousel.currentIndex < 0) {
-        carousel.currentIndex = Math.max(0, carousel.totalCards - cardsPerView);
-      } else if (carousel.currentIndex > carousel.totalCards - cardsPerView) {
-        carousel.currentIndex = 0;
-      }
-      
-      const offset = -(carousel.currentIndex * (cardWidth + gap));
-      track.style.transform = `translateX(${offset}px)`;
+      track.style.transform = 'translateX(' + (-(carousel.currentIndex * getStep(track))) + 'px)';
       updateDots(location);
     }
 
     function updateDots(location) {
       const carousel = carousels[location];
       const dotsContainer = document.getElementById(location + 'CarouselDots');
-      const cardsPerView = window.innerWidth < 780 ? 2 : 4;
-      const totalDots = Math.ceil(carousel.totalCards / cardsPerView);
-      
+      if (!carousel || !dotsContainer) return;
+      const cardsPerView = getCardsPerView();
+      const totalDots = Math.max(1, Math.ceil(carousel.totalCards / cardsPerView));
+      const logical = ((carousel.currentIndex % carousel.totalCards) + carousel.totalCards) % carousel.totalCards;
+      const activeDot = Math.min(totalDots - 1, Math.floor(logical / cardsPerView));
+
       dotsContainer.innerHTML = '';
       for (let i = 0; i < totalDots; i++) {
         const dot = document.createElement('button');
-        dot.className = 'carousel-dot' + (i === Math.floor(carousel.currentIndex / cardsPerView) ? ' active' : '');
-        dot.onclick = () => {
-          carousel.currentIndex = i * cardsPerView;
+        dot.type = 'button';
+        dot.className = 'carousel-dot' + (i === activeDot ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide group ' + (i + 1));
+        dot.onclick = function () {
           const track = document.getElementById(location + 'Carousel');
-          const cardWidth = track.querySelector('.room-card').offsetWidth;
-          const gap = 24;
-          const offset = -(carousel.currentIndex * (cardWidth + gap));
-          track.style.transform = `translateX(${offset}px)`;
+          if (!track || carousel.animating) return;
+          carousel.animating = true;
+          let next = carousel.totalCards + (i * cardsPerView);
+          if (next >= carousel.totalCards * 2) next = carousel.totalCards * 2 - 1;
+          carousel.currentIndex = next;
+          track.style.transform = 'translateX(' + (-(carousel.currentIndex * getStep(track))) + 'px)';
           updateDots(location);
         };
         dotsContainer.appendChild(dot);
       }
     }
 
-    window.addEventListener('load', () => {
-      updateDots('ogbomosho');
+    window.addEventListener('load', function () {
+      initCarousel('ogbomosho');
     });
 
-    window.addEventListener('resize', () => {
-      carousels.ogbomosho.currentIndex = 0;
-      document.getElementById('ogbomoshoCarousel').style.transform = 'translateX(0)';
-      updateDots('ogbomosho');
+    window.addEventListener('resize', function () {
+      Object.keys(carousels).forEach(function (location) {
+        const track = document.getElementById(location + 'Carousel');
+        const c = carousels[location];
+        if (!track || !c) return;
+        track.style.transition = 'none';
+        const logical = ((c.currentIndex % c.totalCards) + c.totalCards) % c.totalCards;
+        c.currentIndex = c.totalCards + logical;
+        track.style.transform = 'translateX(' + (-(c.currentIndex * getStep(track))) + 'px)';
+        void track.offsetHeight;
+        track.style.transition = 'transform .5s ease';
+        c.animating = false;
+        updateDots(location);
+      });
     });
-  </script>
+    </script>
 
   <!-- GALLERY MODAL -->
   <div class="gallery-modal" id="galleryModal">
@@ -1136,7 +1206,7 @@
       if (e.target === this) closeGalleryModal();
     });
   </script>
-  <script src="/js/site-chrome-20260922m.js"></script>
+  <script src="/js/site-chrome-20260922n.js"></script>
 </body>
 </html>
 

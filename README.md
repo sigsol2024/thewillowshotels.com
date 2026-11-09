@@ -1,6 +1,6 @@
-# The Willow Nest Hotel - Static HTML Version
+# The Willows Nest Hotel - Static HTML Version
 
-This is a complete static HTML/CSS/JavaScript version of The Willow Nest Hotel website, converted from the original React application.
+This is a complete static HTML/CSS/JavaScript version of The Willows Nest Hotel website, converted from the original React application.
 
 ## ✅ Completed Pages
 
